@@ -1,0 +1,29 @@
+@use "../inc/functions" as *;
+
+@use "./sidebar";
+@use "./core";
+@use "./card";
+@use "./nav-menu";
+@use "./search";
+@use "./loader";
+@use "./button";
+@use "./dialog";
+
+.app-container {
+  display: flex;
+  border-radius: 1rem;
+  overflow: hidden;
+  height: 100%;
+  border: solid 1px rgba(85, 85, 85, 0.096);
+}
+
+.icon {
+  stroke: black;
+  width: get-rem(24);
+  height: get-rem(24);
+
+  &.small {
+    width: get-rem(14);
+    height: get-rem(14);
+  }
+}

@@ -1,0 +1,151 @@
+@use "../inc/functions" as *;
+
+.inventario {
+  .container-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .table-ctas {
+      display: flex;
+      gap: get-rem(16);
+      .cta {
+        display: flex;
+        align-items: center;
+        gap: get-rem(8);
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+
+        &:focus {
+          outline: none;
+        }
+
+        p {
+          font-weight: 500;
+          text-decoration: underline;
+        }
+
+        &.active {
+          p {
+            color: var(--clr-error);
+          }
+        }
+      }
+    }
+  }
+
+  .filters-wrapper {
+    position: relative;
+  }
+
+  .filters-popover {
+    position: absolute;
+    top: get-rem(19);
+    right: get-rem(-53);
+    position-area: left bottom;
+    padding: get-rem(20);
+    border: none;
+    border-radius: get-rem(8);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.16);
+
+    .genere-filter,
+    .name-filter {
+      display: flex;
+      flex-direction: column;
+      gap: get-rem(8);
+      padding-bottom: get-rem(8);
+      border-bottom: solid 1px var(--clr-secondary);
+
+      .filter {
+        display: flex;
+        justify-content: flex-start;
+        gap: get-rem(8);
+        cursor: pointer;
+
+        input,
+        label {
+          cursor: pointer;
+        }
+      }
+    }
+    .search {
+      margin-top: get-rem(8);
+
+      svg {
+        position: absolute;
+        right: get-rem(6.4);
+        top: get-rem(8);
+      }
+    }
+
+    .name-filter {
+      padding-top: get-rem(8);
+
+      label {
+        display: flex;
+        gap: get-rem(8);
+      }
+    }
+
+    &::backdrop {
+      width: 0;
+      height: 0;
+    }
+  }
+
+  .container {
+    width: 100%;
+    max-height: 72.2vh;
+    padding: get-rem(20);
+    background-image: linear-gradient(180deg, #ffffff5b, #00000002);
+    border-radius: get-rem(12);
+    overflow-y: auto;
+
+    .table {
+      border: solid 1px black;
+      border-radius: get-rem(8);
+      width: 100%;
+      padding: get-rem(20);
+
+      .row {
+        gap: 0;
+        padding: 0;
+        padding: get-rem(8);
+        border-bottom: solid 1px var(--clr-secondary);
+        align-items: center;
+
+        &:last-child {
+          border: none;
+        }
+
+        :nth-child(1n) {
+          padding: get-rem(8);
+        }
+
+        .icon {
+          padding: 0;
+        }
+      }
+
+      .product-detail-label {
+        margin: 0 auto;
+      }
+
+      .table-btns {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: get-rem(8);
+
+        .btn-icon {
+          max-width: get-rem(40);
+        }
+      }
+
+      h3 {
+        padding: get-rem(8);
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+@use "../inc/functions" as *;
+@use "../base/variables";
+
+.card {
+  background-image: linear-gradient(180deg, #ffffff5b, #00000002);
+  border-radius: 12px;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 1rem;
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .card-title {
+      font-size: get-rem(24);
+    }
+  }
+
+  .card-body {
+    justify-content: space-between;
+    height: 100%;
+
+    .data-container {
+      padding-left: 1rem;
+      border-left: solid 2px rgba(0, 0, 0, 0.24);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      .card-title {
+        color: var(--clr-secondary);
+      }
+    }
+
+    p {
+      font-weight: 500;
+      font-size: get-rem(48);
+    }
+  }
+
+  .card-footer {
+    .data-container {
+      display: flex;
+      gap: get-rem(32);
+    }
+  }
+}

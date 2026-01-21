@@ -1,0 +1,16 @@
+@use "./functions" as *;
+@use "./mixins" as *;
+
+.hidden {
+  display: none !important;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}

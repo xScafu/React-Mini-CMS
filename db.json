@@ -1,0 +1,146 @@
+{
+  "prodotti": [
+    {
+      "id": "atp3m",
+      "tipo": "Elettronica",
+      "nome": "Smartphone",
+      "prezzo": 500,
+      "quantita": 10,
+      "costo": 350,
+      "dataAcquisto": "2025-11-25",
+      "index": 1
+    },
+    {
+      "id": "lef1h",
+      "tipo": "Elettronica",
+      "nome": "Laptop",
+      "prezzo": 300,
+      "quantita": 20,
+      "costo": 150,
+      "dataAcquisto": "2025-11-25",
+      "index": 2
+    },
+    {
+      "id": "2io4j",
+      "tipo": "Prodotto Digitale",
+      "nome": "Software",
+      "prezzo": 80,
+      "quantita": 1000,
+      "costo": 30,
+      "dataAcquisto": "2025-11-25",
+      "index": 3
+    },
+    {
+      "id": "95r53",
+      "tipo": "Prodotto Digitale",
+      "nome": "Videogame",
+      "prezzo": 80,
+      "quantita": 1000,
+      "costo": 30,
+      "dataAcquisto": "2025-11-25",
+      "index": 4
+    },
+    {
+      "id": "40a8",
+      "nome": "Carta",
+      "tipo": "Generico",
+      "costo": "0.8",
+      "prezzo": "1",
+      "quantita": "500",
+      "dataAcquisto": "2025-12-22",
+      "dataSpeciale": "2025-12-26",
+      "index": 5
+    },
+    {
+      "id": "d80d",
+      "nome": "Mozzarella",
+      "tipo": "Alimentare",
+      "costo": "3",
+      "prezzo": "5",
+      "quantita": "100",
+      "dataAcquisto": "2025-12-22",
+      "dataSpeciale": "2025-12-31",
+      "index": 6
+    },
+    {
+      "id": "2c4e",
+      "nome": "Lavastovglie",
+      "tipo": "Elettrodomestico",
+      "costo": "700",
+      "prezzo": "900",
+      "quantita": "10",
+      "dataAcquisto": "2026-01-14",
+      "dataSpeciale": "2028-01-14",
+      "index": 8
+    },
+    {
+      "id": "a3fb",
+      "nome": "Carne",
+      "tipo": "Alimentare",
+      "costo": "10",
+      "prezzo": "5",
+      "quantita": "50",
+      "dataAcquisto": "2026-01-15",
+      "dataSpeciale": "2026-01-22",
+      "index": 8
+    }
+  ],
+  "cards": [
+    {
+      "id": "18g6",
+      "label": "Numero<br> di prodotti",
+      "icon": "barcode",
+      "value": 50
+    },
+    {
+      "id": "4f87",
+      "label": "Numero<br> di tipi di prodotti",
+      "icon": "notebook-tabs",
+      "value": 10
+    },
+    {
+      "id": "hjfy",
+      "label": "Quatità totale",
+      "icon": "weight",
+      "value": 5000
+    },
+    {
+      "id": "nf46",
+      "label": "Costo totale",
+      "icon": "banknote-arrow-down",
+      "value": 15000,
+      "moneySymbol": "€"
+    }
+  ],
+  "bilancio": [
+    {
+      "id": "g16s",
+      "value": 6200,
+      "moneySymbol": "€"
+    },
+    {
+      "id": "gse7",
+      "label": "Mese scorso",
+      "value": 3200,
+      "moneySymbol": "€"
+    },
+    {
+      "id": "h4t8",
+      "label": "Ultimi 3 mesi",
+      "value": 5000,
+      "moneySymbol": "€"
+    },
+    {
+      "id": "k418",
+      "label": "Ultimi 6 mesi",
+      "value": 7500,
+      "moneySymbol": "€"
+    },
+    {
+      "id": "ed48",
+      "label": "Ultimo anno",
+      "value": 11500,
+      "moneySymbol": "€"
+    }
+  ]
+}
