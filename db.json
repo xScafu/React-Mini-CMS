@@ -88,13 +88,13 @@
   "cards": [
     {
       "id": "18g6",
-      "label": "Numero<br> di prodotti",
+      "label": "Numero di prodotti",
       "icon": "barcode",
       "value": 50
     },
     {
       "id": "4f87",
-      "label": "Numero<br> di tipi di prodotti",
+      "label": "Numero di tipi di prodotti",
       "icon": "notebook-tabs",
       "value": 10
     },
@@ -110,37 +110,46 @@
       "icon": "banknote-arrow-down",
       "value": 15000,
       "moneySymbol": "€"
+    },
+    {
+      "id": "46aw",
+      "label": "Acquisti totali",
+      "icon": "shopping-cart",
+      "value": 3845,
+      "moneySymbol": "€"
     }
   ],
   "bilancio": [
     {
       "id": "g16s",
       "value": 6200,
-      "moneySymbol": "€"
-    },
-    {
-      "id": "gse7",
-      "label": "Mese scorso",
-      "value": 3200,
-      "moneySymbol": "€"
-    },
-    {
-      "id": "h4t8",
-      "label": "Ultimi 3 mesi",
-      "value": 5000,
-      "moneySymbol": "€"
-    },
-    {
-      "id": "k418",
-      "label": "Ultimi 6 mesi",
-      "value": 7500,
-      "moneySymbol": "€"
-    },
-    {
-      "id": "ed48",
-      "label": "Ultimo anno",
-      "value": 11500,
-      "moneySymbol": "€"
+      "moneySymbol": "€",
+      "details": [
+        {
+          "id": "gse7",
+          "label": "Mese scorso",
+          "value": 3200,
+          "moneySymbol": "€"
+        },
+        {
+          "id": "h4t8",
+          "label": "Ultimi 3 mesi",
+          "value": 5000,
+          "moneySymbol": "€"
+        },
+        {
+          "id": "k418",
+          "label": "Ultimi 6 mesi",
+          "value": 7500,
+          "moneySymbol": "€"
+        },
+        {
+          "id": "ed48",
+          "label": "Ultimo anno",
+          "value": 11500,
+          "moneySymbol": "€"
+        }
+      ]
     }
   ]
 }

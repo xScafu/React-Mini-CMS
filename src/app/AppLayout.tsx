@@ -1,14 +1,32 @@
-import { Route, Routes } from "react-router";
-import Dashboard from "../pages/Dashboard/Dashboard.page";
-import Inventario from "../pages/Inventario/Inventario.page";
+import { CircleQuestionMark } from "lucide-react";
+import Routes from "../components/Routes.component";
+import Searchbar from "../components/Searchbar.component";
+import Core from "../components/Core";
+import AppRouter from "./AppRouter";
+import Sidebar from "../components/Sidebar.component";
 
 export default function AppLayout() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="inventario" element={<Inventario />} />
-      </Routes>
+      <div className="app-container">
+        <Sidebar />
+        <div className="main-container">
+          <div className="grid">
+            <header className="main-header row">
+              <Routes />
+              <Searchbar />
+              <div className="header-btns col-1">
+                <button type="button" className="btn">
+                  <CircleQuestionMark />
+                </button>
+              </div>
+            </header>
+          </div>
+          <Core>
+            <AppRouter />
+          </Core>
+        </div>
+      </div>
     </>
   );
 }

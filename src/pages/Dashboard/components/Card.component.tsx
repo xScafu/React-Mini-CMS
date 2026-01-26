@@ -1,34 +1,27 @@
-interface Card {
-  id: string;
-  label: string;
-  icon: string;
-  value: number;
-}
+import { DynamicIcon } from "lucide-react/dynamic";
+import type { Card } from "../../../core/Types";
 
-export default function Card() {
-  return (
-    <>
-      <div className="card col-3">
-        <div className="card-body flex">
-          <div className="data-container">
-            <h2 className="card-title"></h2>
-            <p className="js-card-value"></p>
+export default function Card({ cardID, cardLabel, cardValue, cardIcon }) {
+  if (cardID) {
+    return (
+      <>
+        <div className="card col-3">
+          <div className="card-body flex">
+            <div className="data-container">
+              <h2 className="card-title">{cardLabel}</h2>
+              <p className="js-card-value">{cardValue}</p>
+            </div>
+            <a href="#">
+              <button type="button" className="btn-icon">
+                <DynamicIcon name={cardIcon} />
+              </button>
+            </a>
           </div>
-          <a href="#">
-            <button type="button" className="btn-icon">
-              <i className="js-card-icon icon"></i>
-            </button>
-          </a>
+          <div className="card-footer">
+            <span className="js-avvisi"></span>
+          </div>
         </div>
-        <div className="card-footer">
-          <span className="js-avvisi"></span>
-        </div>
-      </div>
-
-      <div className="last-month js-balance-content">
-        <h3 className="card-title js-balance-label"></h3>
-        <p className="js-balance-value"></p>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 }
