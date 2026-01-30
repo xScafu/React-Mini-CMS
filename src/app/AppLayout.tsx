@@ -4,11 +4,13 @@ import Searchbar from "../components/Searchbar.component";
 import Core from "../components/Core";
 import AppRouter from "./AppRouter";
 import Sidebar from "../components/Sidebar.component";
+import { ToastContainer } from "react-toastify";
 
 export default function AppLayout() {
   return (
     <>
       <div className="app-container">
+        <ToastContainer />
         <Sidebar />
         <div className="main-container">
           <div className="grid">

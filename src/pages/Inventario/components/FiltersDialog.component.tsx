@@ -2,12 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCategories } from "../hook/useCategories";
 import { setFilterArray } from "../../../features/categoryFilter/filterSlice";
 import { setToggleSorting } from "../../../features/categoryFilter/sortingSlice";
+import SearchFilter from "./SearchFilter.component";
 
 export default function FiltersDialog() {
   const { categories, loading } = useCategories();
   const dispatch = useDispatch();
   const { sortingAscendance, sortingDescendance } = useSelector(
-    (state) => state.sorting
+    (state) => state.sorting,
   );
 
   if (!loading) {
@@ -19,21 +20,22 @@ export default function FiltersDialog() {
             {categories.map((category) => (
               <li className="js-filter filter">
                 <input
+                  id={category ? category.toLowerCase() : ""}
                   className="js-filter-checkbox"
                   type="checkbox"
-                  name={category.toLowerCase()}
+                  name={category ? category.toLowerCase() : "sconosciuto"}
                   onChange={(e) => {
                     dispatch(
                       setFilterArray({
                         name: e.target.name,
                         checked: e.target.checked,
-                      })
+                      }),
                     );
                   }}
                 ></input>
                 <label
                   className="js-filter-label"
-                  htmlFor={category.toLowerCase()}
+                  htmlFor={category ? category.toLowerCase() : ""}
                 >
                   {category}
                 </label>
@@ -73,15 +75,7 @@ export default function FiltersDialog() {
               </label>
             </li>
           </ul>
-          <div className="search">
-            <input
-              type="search"
-              name="search"
-              className="js-search-filter search-input"
-              placeholder="Cerca per nome"
-            ></input>
-            <i data-lucide="search"></i>
-          </div>
+          <SearchFilter />
         </dialog>
       </>
     );

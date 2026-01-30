@@ -1,134 +1,169 @@
+import { useDispatch, useSelector } from "react-redux";
+import Modal from "../../../components/Modal";
+import { postProduct } from "../../../core/ServerService";
+import InputForm from "./InputForm.component";
+
+import { useEffect, useRef } from "react";
+import { useForm } from "react-hook-form";
+import { setAddIsOpen } from "../../../features/toggleDialogSlice";
+import { setRefreshComponent } from "../../../features/refreshComponentSlice";
+
 export default function AddProductModal() {
+  const dialogRef = useRef(null);
+  const addIsOpen = useSelector((state: boolean) => state.dialog.addIsOpen);
+  const dispatch = useDispatch();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitSuccessful },
+  } = useForm({
+    defaultValues: {
+      nome: "",
+      categoria: "",
+      costo: 0,
+      prezzo: 0,
+      quantita: 0,
+      dataAcquisto: "",
+      dataSpeciale: "",
+    },
+  });
+  const onSubmit = (data) => {
+    postProduct(data);
+    dispatch(setAddIsOpen(false));
+    dispatch(setRefreshComponent(true));
+  };
+
+  useEffect(() => {
+    const dialogState = dialogRef.current;
+    if (addIsOpen) {
+      dialogState.showModal();
+    } else {
+      dialogState.close();
+    }
+  });
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
+
   return (
     <>
-      <dialog class="modal js-add-modal" popover="auto" id="openAddProduct">
-        <div class="modal-header">
-          <h1 class="js-modal-add-header-title title">Title</h1>
-        </div>
-        <div class="modal-body">
-          <div class="container js-modal-add-content">
-            <form className="grid js-form">
+      <Modal
+        modalId={"addDialog"}
+        modalRef={dialogRef}
+        modalHeader={
+          <h1 className="js-modal-add-header-title title">Aggiungi</h1>
+        }
+        modalBody={
+          <div className="container js-modal-add-content">
+            <form className="grid js-form" onSubmit={handleSubmit(onSubmit)}>
               <p className="js-form-description form-description">
-                Descrizione del form dinamica
+                Inserisci i dati relativi al nuovo prodotto. <br /> Tutti i
+                campi sono obbligatori.
               </p>
               <div className="row">
-                <div className="input-wrapper col-6">
-                  <label
-                    className="js-labels js-nomeProdotto-label"
-                    htmlFor="nomeProdotto"
-                  >
-                    Nome
-                  </label>
-                  <input
-                    className="js-input js-nomeProdotto"
-                    type="text"
-                    name="nome"
-                    id="nomeProdotto"
-                  ></input>
-                </div>
-                <div className="input-wrapper col-6">
-                  <label
-                    className="js-labels js-tipoProdotto-label"
-                    htmlFor="tipoProdotto"
-                  >
-                    Categoria
-                  </label>
-                  <input
-                    className="js-input js-tipoProdotto"
-                    type="text"
-                    name="tipo"
-                    id="tipoProdotto"
-                  ></input>
-                </div>
+                <InputForm
+                  registerProp={{ ...register("nome", { required: true }) }}
+                  gridClass="col-6"
+                  errorClass={errors.nome ? "error" : ""}
+                  inputId="nomeProdotto"
+                  labelContent={`Nome${errors.nome ? "*" : ""}`}
+                  inputType="text"
+                  inputName="nome"
+                />
+
+                <InputForm
+                  registerProp={{
+                    ...register("categoria", { required: true }),
+                  }}
+                  gridClass="col-6"
+                  errorClass={errors.categoria ? "error" : ""}
+                  inputId="categoriaProdotto"
+                  labelContent={`Categoria${errors.categoria ? "*" : ""}`}
+                  inputType="text"
+                  inputName="categoria"
+                />
               </div>
 
               <div className="row">
-                <div className="input-wrapper col-6">
-                  <label
-                    className="js-labels js-costoProdotto-label"
-                    htmlFor="costoProdotto"
-                  >
-                    Costo
-                  </label>
-                  <input
-                    className="js-input js-costoProdotto"
-                    type="number"
-                    name="costo"
-                    id="costoProdotto"
-                  ></input>
-                </div>
-                <div className="input-wrapper col-6">
-                  <label
-                    className="js-labels js-prezzoProdotto-label"
-                    htmlFor="prezzoProdotto"
-                  >
-                    Prezzo
-                  </label>
-                  <input
-                    className="js-input js-prezzoProdotto"
-                    type="number"
-                    name="prezzo"
-                    id="prezzoProdotto"
-                  ></input>
-                </div>
+                <InputForm
+                  registerProp={{ ...register("costo", { required: true }) }}
+                  gridClass="col-6"
+                  errorClass={errors.costo ? "error" : ""}
+                  inputId="costoProdotto"
+                  labelContent={`Costo${errors.costo ? "*" : ""}`}
+                  inputType="text"
+                  inputName="costo"
+                />
+                <InputForm
+                  registerProp={{ ...register("prezzo", { required: true }) }}
+                  gridClass="col-6"
+                  errorClass={errors.prezzo ? "error" : ""}
+                  inputId="prezzoProdotto"
+                  labelContent={`Prezzo${errors.prezzo ? "*" : ""}`}
+                  inputType="text"
+                  inputName="prezzo"
+                />
               </div>
 
               <div className="row">
-                <div className="input-wrapper col-6">
-                  <label
-                    className="js-labels js-quantitaProdotto-label"
-                    htmlFor="quantitaProdotto"
-                  >
-                    Quantità
-                  </label>
-                  <input
-                    className="js-input js-quantitaProdotto"
-                    type="number"
-                    name="quantita"
-                    id="quantitaProdotto"
-                  ></input>
-                </div>
-                <div className="input-wrapper col-6">
-                  <label
-                    className="js-labels js-dataAcquistoProdotto-label"
-                    htmlFor="dataAcquistoProdotto"
-                  >
-                    Data di acquisto
-                  </label>
-                  <input
-                    className="js-input js-dataAcquistoProdotto"
-                    type="date"
-                    name="dataAcquisto"
-                    id="dataAcquistoProdotto"
-                  ></input>
-                </div>
-                <div className="js-dataSpeciale input-wrapper col-6">
-                  <label
-                    className="js-labels js-dataSpecialeProdotto-label"
-                    htmlFor="dataSpecialeProdotto"
-                  >
-                    Data speciale
-                  </label>
-                  <input
-                    className="js-input js-dataSpecialeProdotto"
-                    type="date"
-                    name="dataSpeciale"
-                    id="dataSpecialeProdotto"
-                  ></input>
-                </div>
+                <InputForm
+                  registerProp={{
+                    ...register("quantita", { required: true }),
+                  }}
+                  gridClass="col-6"
+                  errorClass={errors.quantita ? "error" : ""}
+                  inputId="quantitaProdotto"
+                  labelContent={`Quantità${errors.quantita ? "*" : ""}`}
+                  inputType="number"
+                  inputName="quantita"
+                />
+                <InputForm
+                  registerProp={{
+                    ...register("dataAcquisto", { required: true }),
+                  }}
+                  gridClass="col-6"
+                  errorClass={errors.dataAcquisto ? "error" : ""}
+                  inputId="dataAcquistoProdotto"
+                  labelContent={`Data d'acquisto${errors.dataAcquisto ? "*" : ""}`}
+                  inputType="date"
+                  inputName="dataAcquisto"
+                />
+                <InputForm
+                  registerProp={{
+                    ...register("dataSpeciale", { required: true }),
+                  }}
+                  gridClass="col-6"
+                  errorClass={errors.dataSpeciale ? "error" : ""}
+                  inputId="dataSpecialeProdotto"
+                  labelContent={`Data speciale${errors.dataSpeciale ? "*" : ""}`}
+                  inputType="date"
+                  inputName="dataSpeciale"
+                />
               </div>
               <div className="row btns-container js-btns-container">
                 <button type="submit" className="btn js-btn-accept">
                   Accetta
                 </button>
-                <button type="button" className="btn js-btn-return">
+                <button
+                  type="button"
+                  className="btn js-btn-return"
+                  onClick={() => {
+                    dispatch(setAddIsOpen(false));
+                    reset();
+                  }}
+                >
                   Annulla
                 </button>
               </div>
             </form>
           </div>
-        </div>
-      </dialog>
+        }
+      ></Modal>
     </>
   );
 }

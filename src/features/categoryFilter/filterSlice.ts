@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const filterSlice = createSlice({
   name: "filter",
   initialState: {
-    filterArray: <string[]>[],
+    filterArray: [],
   },
   reducers: {
     setFilterArray: (state, actions) => {
@@ -13,7 +13,7 @@ const filterSlice = createSlice({
         state.filterArray.push(name);
       } else {
         state.filterArray = state.filterArray.filter(
-          (category) => category !== name
+          (category) => category !== name,
         );
       }
     },

@@ -1,88 +1,114 @@
 {
   "prodotti": [
     {
-      "id": "atp3m",
-      "tipo": "Elettronica",
-      "nome": "Smartphone",
-      "prezzo": 500,
-      "quantita": 10,
-      "costo": 350,
-      "dataAcquisto": "2025-11-25",
-      "index": 1
+      "id": "1e30",
+      "nome": "Cuffie",
+      "categoria": "Elettronica",
+      "costo": "50",
+      "prezzo": "150",
+      "quantita": "20",
+      "dataAcquisto": "2026-01-28",
+      "dataSpeciale": "2028-01-28"
     },
     {
-      "id": "lef1h",
-      "tipo": "Elettronica",
+      "id": "9532",
       "nome": "Laptop",
-      "prezzo": 300,
-      "quantita": 20,
-      "costo": 150,
-      "dataAcquisto": "2025-11-25",
-      "index": 2
-    },
-    {
-      "id": "2io4j",
-      "tipo": "Prodotto Digitale",
-      "nome": "Software",
-      "prezzo": 80,
-      "quantita": 1000,
-      "costo": 30,
-      "dataAcquisto": "2025-11-25",
-      "index": 3
-    },
-    {
-      "id": "95r53",
-      "tipo": "Prodotto Digitale",
-      "nome": "Videogame",
-      "prezzo": 80,
-      "quantita": 1000,
-      "costo": 30,
-      "dataAcquisto": "2025-11-25",
-      "index": 4
-    },
-    {
-      "id": "40a8",
-      "nome": "Carta",
-      "tipo": "Generico",
-      "costo": "0.8",
-      "prezzo": "1",
-      "quantita": "500",
-      "dataAcquisto": "2025-12-22",
-      "dataSpeciale": "2025-12-26",
-      "index": 5
-    },
-    {
-      "id": "d80d",
-      "nome": "Mozzarella",
-      "tipo": "Alimentare",
-      "costo": "3",
-      "prezzo": "5",
+      "categoria": "Elettronica",
+      "costo": "300",
+      "prezzo": "600",
       "quantita": "100",
-      "dataAcquisto": "2025-12-22",
-      "dataSpeciale": "2025-12-31",
-      "index": 6
+      "dataAcquisto": "2026-01-28",
+      "dataSpeciale": "2028-01-28"
     },
     {
-      "id": "2c4e",
-      "nome": "Lavastovglie",
-      "tipo": "Elettrodomestico",
-      "costo": "700",
-      "prezzo": "900",
-      "quantita": "10",
-      "dataAcquisto": "2026-01-14",
-      "dataSpeciale": "2028-01-14",
-      "index": 8
+      "id": "b7ab",
+      "nome": "Tastiera per PC",
+      "categoria": "Elettronica",
+      "costo": "60",
+      "prezzo": "150",
+      "quantita": "200",
+      "dataAcquisto": "2026-01-28",
+      "dataSpeciale": "2028-01-28"
     },
     {
-      "id": "a3fb",
+      "id": "1ea6",
+      "nome": "Software",
+      "categoria": "Prodotto Digitale",
+      "costo": "5",
+      "prezzo": "20",
+      "quantita": "1000",
+      "dataAcquisto": "2026-01-28",
+      "dataSpeciale": "2026-01-28"
+    },
+    {
+      "id": "4f96",
       "nome": "Carne",
-      "tipo": "Alimentare",
+      "categoria": "Alimentare",
       "costo": "10",
-      "prezzo": "5",
-      "quantita": "50",
-      "dataAcquisto": "2026-01-15",
-      "dataSpeciale": "2026-01-22",
-      "index": 8
+      "prezzo": "15",
+      "quantita": "100",
+      "dataAcquisto": "2026-01-29",
+      "dataSpeciale": "2026-02-05"
+    },
+    {
+      "id": "d23e",
+      "nome": "Cavo HDMI",
+      "categoria": "Elettronica",
+      "costo": "20",
+      "prezzo": "35",
+      "quantita": "300",
+      "dataAcquisto": "2026-01-29",
+      "dataSpeciale": "2026-01-29"
+    },
+    {
+      "id": "e8f6",
+      "nome": "Cavo Ethernet",
+      "categoria": "Elettronica",
+      "costo": "15",
+      "prezzo": "25",
+      "quantita": "500",
+      "dataAcquisto": "2026-01-29",
+      "dataSpeciale": "2026-01-29"
+    },
+    {
+      "id": "6734",
+      "nome": "Occhiali da sole",
+      "categoria": "Abbigliamento",
+      "costo": "50",
+      "prezzo": "100",
+      "quantita": "20",
+      "dataAcquisto": "2026-01-29",
+      "dataSpeciale": "2026-01-29"
+    },
+    {
+      "id": "d13f",
+      "nome": "Jeans",
+      "categoria": "Abbigliamento",
+      "costo": "10",
+      "prezzo": "30",
+      "quantita": "60",
+      "dataAcquisto": "2026-01-29",
+      "dataSpeciale": "2026-01-29"
+    },
+    {
+      "id": "a5db",
+      "nome": "Barbecue",
+      "categoria": "Prodotti per la casa",
+      "costo": "60",
+      "prezzo": "200",
+      "quantita": "20",
+      "dataAcquisto": "2026-01-29",
+      "dataSpeciale": "2026-01-29"
+    },
+    {
+      "id": "4373",
+      "nome": "Pane",
+      "categoria": "Alimentare",
+      "costo": "1",
+      "prezzo": "2",
+      "quantita": "20",
+      "dataAcquisto": "2026-01-29",
+      "dataSpeciale": "2026-01-29"
     }
   ],
   "cards": [
