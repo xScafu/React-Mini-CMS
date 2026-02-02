@@ -6,7 +6,6 @@ export default function InputForm({
   labelContent,
   errorClass,
   registerProp,
-  setValue,
   setReadOnly,
 }) {
   return (
@@ -24,7 +23,6 @@ export default function InputForm({
           type={inputType}
           name={inputName}
           id={inputId}
-          value={setValue}
           readOnly={setReadOnly}
         ></input>
       </div>

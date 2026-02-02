@@ -6,9 +6,9 @@
       "categoria": "Elettronica",
       "costo": "50",
       "prezzo": "150",
-      "quantita": "20",
+      "quantita": "10",
       "dataAcquisto": "2026-01-28",
-      "dataSpeciale": "2028-01-28"
+      "dataSpeciale": "2028-02-02"
     },
     {
       "id": "9532",
@@ -109,6 +109,16 @@
       "quantita": "20",
       "dataAcquisto": "2026-01-29",
       "dataSpeciale": "2026-01-29"
+    },
+    {
+      "id": "75d3",
+      "nome": "T-Shirt",
+      "categoria": "Abbigliamento",
+      "costo": "10",
+      "prezzo": "30",
+      "quantita": "200",
+      "dataAcquisto": "2026-01-30",
+      "dataSpeciale": "2026-01-30"
     }
   ],
   "cards": [

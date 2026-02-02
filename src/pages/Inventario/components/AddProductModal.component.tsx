@@ -7,28 +7,23 @@ import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { setAddIsOpen } from "../../../features/toggleDialogSlice";
 import { setRefreshComponent } from "../../../features/refreshComponentSlice";
+import { useCategories } from "../hook/useCategories";
+import SelectForm from "./SelectForm.component";
 
 export default function AddProductModal() {
   const dialogRef = useRef(null);
   const addIsOpen = useSelector((state: boolean) => state.dialog.addIsOpen);
   const dispatch = useDispatch();
+  const { categories, loading } = useCategories();
 
   const {
     register,
+    control,
     handleSubmit,
     reset,
     formState: { errors, isSubmitSuccessful },
-  } = useForm({
-    defaultValues: {
-      nome: "",
-      categoria: "",
-      costo: 0,
-      prezzo: 0,
-      quantita: 0,
-      dataAcquisto: "",
-      dataSpeciale: "",
-    },
-  });
+  } = useForm();
+
   const onSubmit = (data) => {
     postProduct(data);
     dispatch(setAddIsOpen(false));
@@ -76,7 +71,17 @@ export default function AddProductModal() {
                   inputName="nome"
                 />
 
-                <InputForm
+                <SelectForm
+                  control={control}
+                  gridClass="col-6"
+                  errorClass={errors.categoria ? "error" : ""}
+                  inputId="categoriaProdotto"
+                  labelContent={`Categoria${errors.categoria ? "*" : ""}`}
+                  categoriesName={categories}
+                  inputName="categoria"
+                />
+
+                {/* <InputForm
                   registerProp={{
                     ...register("categoria", { required: true }),
                   }}
@@ -86,7 +91,7 @@ export default function AddProductModal() {
                   labelContent={`Categoria${errors.categoria ? "*" : ""}`}
                   inputType="text"
                   inputName="categoria"
-                />
+                /> */}
               </div>
 
               <div className="row">
@@ -129,7 +134,9 @@ export default function AddProductModal() {
                   gridClass="col-6"
                   errorClass={errors.dataAcquisto ? "error" : ""}
                   inputId="dataAcquistoProdotto"
-                  labelContent={`Data d'acquisto${errors.dataAcquisto ? "*" : ""}`}
+                  labelContent={`Data d'acquisto${
+                    errors.dataAcquisto ? "*" : ""
+                  }`}
                   inputType="date"
                   inputName="dataAcquisto"
                 />
@@ -140,7 +147,9 @@ export default function AddProductModal() {
                   gridClass="col-6"
                   errorClass={errors.dataSpeciale ? "error" : ""}
                   inputId="dataSpecialeProdotto"
-                  labelContent={`Data speciale${errors.dataSpeciale ? "*" : ""}`}
+                  labelContent={`Data speciale${
+                    errors.dataSpeciale ? "*" : ""
+                  }`}
                   inputType="date"
                   inputName="dataSpeciale"
                 />

@@ -24,7 +24,7 @@ export async function postProduct(product: Product) {
         pending: "Caricamento",
         success: "Prodotto caricato con successo",
         error: "Non è stato possibile caricare il prodotto",
-      },
+      }
     )
     .then(() => getProducts())
     .finally(() => getCategories());
@@ -40,10 +40,24 @@ export async function removeProduct(product: Product) {
         pending: "Caricamento",
         success: "Prodotto rimosso con successo",
         error: "Non è stato possibile rimuovere il prodotto",
-      },
+      }
     )
     .then(() => getProducts())
     .finally(() => getCategories());
+}
+
+export async function modifyProduct(product: Product) {
+  toast.promise(
+    fetch(`${API_URL}/prodotti/${product.id}`, {
+      method: "PUT",
+      body: JSON.stringify(product),
+    }),
+    {
+      pending: "Caricamento",
+      success: "Prodotto modificato con successo",
+      error: "Non è stato possibile modificare il prodotto",
+    }
+  );
 }
 
 export async function getCategories() {

@@ -44,11 +44,17 @@ export default function Inventario() {
                   dispatch(setDetailIsOpen(false));
                   dispatch(setRefreshComponent(false));
                 }}
+                title="Aggiungi prodotto"
               >
                 <p>Aggiungi</p>
                 <CirclePlus className="icon small" />
               </button>
-              <button type="button" popoverTarget="openFilters" className="cta">
+              <button
+                type="button"
+                popoverTarget="openFilters"
+                className="cta"
+                title="Filtra i prodotti"
+              >
                 <p>Filtri</p>
                 <ListFilter className="icon small" />
               </button>

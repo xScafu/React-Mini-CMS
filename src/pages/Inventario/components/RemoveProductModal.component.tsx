@@ -9,7 +9,7 @@ import { setRefreshComponent } from "../../../features/refreshComponentSlice";
 
 export default function RemoveProductModal() {
   const removeIsOpen = useSelector(
-    (state: boolean) => state.dialog.removeIsOpen,
+    (state: boolean) => state.dialog.removeIsOpen
   );
 
   const product = useSelector((state) => state.product.product);
@@ -20,6 +20,7 @@ export default function RemoveProductModal() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
@@ -34,6 +35,12 @@ export default function RemoveProductModal() {
       dialogState.showModal();
     }
   });
+
+  useEffect(() => {
+    if (product) {
+      reset(product);
+    }
+  }, [product, reset]);
 
   if (removeIsOpen)
     return (
@@ -61,7 +68,6 @@ export default function RemoveProductModal() {
                     labelContent={`Nome${errors.nome ? "*" : ""}`}
                     inputType="text"
                     inputName="nome"
-                    setValue={product.nome}
                     setReadOnly={true}
                   />
 
@@ -75,7 +81,6 @@ export default function RemoveProductModal() {
                     labelContent={`Categoria${errors.categoria ? "*" : ""}`}
                     inputType="text"
                     inputName="categoria"
-                    setValue={product.categoria}
                     setReadOnly={true}
                   />
                 </div>
@@ -89,7 +94,6 @@ export default function RemoveProductModal() {
                     labelContent={`Costo${errors.costo ? "*" : ""}`}
                     inputType="text"
                     inputName="costo"
-                    setValue={product.costo}
                     setReadOnly={true}
                   />
                   <InputForm
@@ -100,7 +104,6 @@ export default function RemoveProductModal() {
                     labelContent={`Prezzo${errors.prezzo ? "*" : ""}`}
                     inputType="text"
                     inputName="prezzo"
-                    setValue={product.prezzo}
                     setReadOnly={true}
                   />
                 </div>
@@ -116,7 +119,6 @@ export default function RemoveProductModal() {
                     labelContent={`Quantità${errors.quantita ? "*" : ""}`}
                     inputType="number"
                     inputName="quantita"
-                    setValue={product.quantita}
                     setReadOnly={true}
                   />
                   <InputForm
@@ -126,10 +128,11 @@ export default function RemoveProductModal() {
                     gridClass="col-6"
                     errorClass={errors.dataAcquisto ? "error" : ""}
                     inputId="dataAcquistoProdotto"
-                    labelContent={`Data d'acquisto${errors.dataAcquisto ? "*" : ""}`}
+                    labelContent={`Data d'acquisto${
+                      errors.dataAcquisto ? "*" : ""
+                    }`}
                     inputType="date"
                     inputName="dataAcquisto"
-                    setValue={product.dataAcquisto}
                     setReadOnly={true}
                   />
                   <InputForm
@@ -139,10 +142,11 @@ export default function RemoveProductModal() {
                     gridClass="col-6"
                     errorClass={errors.dataSpeciale ? "error" : ""}
                     inputId="dataSpecialeProdotto"
-                    labelContent={`Data speciale${errors.dataSpeciale ? "*" : ""}`}
+                    labelContent={`Data speciale${
+                      errors.dataSpeciale ? "*" : ""
+                    }`}
                     inputType="date"
                     inputName="dataSpeciale"
-                    setValue={product.dataSpeciale}
                     setReadOnly={true}
                   />
                   <InputForm
@@ -152,10 +156,11 @@ export default function RemoveProductModal() {
                     gridClass="col-6"
                     errorClass={errors.dataSpeciale ? "error" : ""}
                     inputId="iD"
-                    labelContent={`ID prodotto${errors.dataSpeciale ? "*" : ""}`}
+                    labelContent={`ID prodotto${
+                      errors.dataSpeciale ? "*" : ""
+                    }`}
                     inputType="text"
                     inputName="id"
-                    setValue={product.id}
                     setReadOnly={true}
                   />
                 </div>

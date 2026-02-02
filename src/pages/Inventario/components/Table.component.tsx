@@ -1,13 +1,13 @@
 import { CircleX, PackageOpen } from "lucide-react";
 import type { Product } from "../../../core/Types";
 import { useProducts } from "../../../hooks/useProducts";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   setAddIsOpen,
   setDetailIsOpen,
   setRemoveIsOpen,
 } from "../../../features/toggleDialogSlice";
-import { setProduct } from "../../../features/productSlice";
+import { setProduct } from "../../../features/product/productSlice";
 import { setRefreshComponent } from "../../../features/refreshComponentSlice";
 
 export default function Table() {
@@ -20,29 +20,32 @@ export default function Table() {
         <div className="container">
           <div className="table grid">
             <div className="row head">
-              <h3 className="col-5">Nome</h3>
-              <h3 className="col-4">Genere</h3>
+              <h3 className="col-3">Nome</h3>
+              <h3 className="col-3">Categoria</h3>
+              <h3 className="col-3">Quantità</h3>
               <h3 className="col-3 product-detail-label">Gestisci prodotto</h3>
             </div>
             <div className="grid body js-table-body">
               {filteredProducts.map((product: Product) => (
-                <div className="js-product row" key={product.id}>
-                  <p className="js-nome col-5">{product.nome}</p>
-                  <p className="js-genere col-4">{product.categoria}</p>
-                  <div className="js-table-btns table-btns col-3">
+                <div className="row" key={product.id}>
+                  <p className="col-3">{product.nome}</p>
+                  <p className="col-3">{product.categoria}</p>
+                  <p className="col-3">{product.quantita}</p>
+                  <div className="table-btns col-3">
                     <button
-                      className="btn-icon js-detail-product-btn"
+                      className="btn-icon"
                       onClick={() => {
                         dispatch(setAddIsOpen(false));
                         dispatch(setRemoveIsOpen(false));
                         dispatch(setDetailIsOpen(true));
                         dispatch(setProduct(product));
                       }}
+                      title="Dettaglio prodotto"
                     >
                       <PackageOpen className="icon" />
                     </button>
                     <button
-                      className="btn-icon js-remove-product-btn"
+                      className="btn-icon"
                       onClick={() => {
                         dispatch(setAddIsOpen(false));
                         dispatch(setRemoveIsOpen(true));
@@ -50,6 +53,7 @@ export default function Table() {
                         dispatch(setRefreshComponent(false));
                         dispatch(setProduct(product));
                       }}
+                      title="Elimina prodotto"
                     >
                       <CircleX className="icon" />
                     </button>

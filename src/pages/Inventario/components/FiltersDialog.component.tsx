@@ -8,7 +8,7 @@ export default function FiltersDialog() {
   const { categories, loading } = useCategories();
   const dispatch = useDispatch();
   const { sortingAscendance, sortingDescendance } = useSelector(
-    (state) => state.sorting,
+    (state) => state.sorting
   );
 
   if (!loading) {
@@ -16,7 +16,7 @@ export default function FiltersDialog() {
       <>
         <dialog popover="auto" id="openFilters" className="filters-popover ">
           <ul className="js-filters-dialog-wrapper genere-filter">
-            <h2>Genere</h2>
+            <h2>Categorie</h2>
             {categories.map((category) => (
               <li className="js-filter filter">
                 <input
@@ -29,7 +29,7 @@ export default function FiltersDialog() {
                       setFilterArray({
                         name: e.target.name,
                         checked: e.target.checked,
-                      }),
+                      })
                     );
                   }}
                 ></input>
