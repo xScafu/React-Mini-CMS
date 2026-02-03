@@ -1,5 +1,8 @@
-import Select from "react-select";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 import { Controller } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { setAddCategoryIsOpen } from "../../../features/toggleDialogSlice";
 
 export default function SelectForm({
   control,
@@ -11,10 +14,19 @@ export default function SelectForm({
   setReadOnly,
   categoriesName,
 }) {
-  const options = categoriesName.map((category: string) => ({
-    value: category.toLowerCase(),
-    label: category,
-  }));
+  const dispatch = useDispatch();
+
+  const addOption = {
+    label: "+ Aggiungi nuova categoria",
+    value: "aggiungiCategoria",
+  };
+  const options = [
+    addOption,
+    ...(categoriesName ?? []).map((category: string) => ({
+      label: category,
+      value: category.toLowerCase(),
+    })),
+  ];
 
   return (
     <div className={`input-wrapper ${gridClass}`}>
@@ -24,27 +36,37 @@ export default function SelectForm({
       >
         {labelContent}
       </label>
-
       <Controller
-        name={inputName}
         control={control}
-        render={({ field }) => {
-          const selectedOption = options.find(
-            (option) => option.value === field.value
-          );
-
-          return (
-            <Select
-              value={selectedOption}
-              options={options}
-              inputId={inputId}
-              className={`js-input ${errorClass}`}
-              isDisabled={setReadOnly}
-              onChange={(option) => field.onChange(option.value)}
-              onBlur={field.onBlur}
-            />
-          );
-        }}
+        name={inputName}
+        defaultValue={null}
+        render={({ field: { onChange, value } }) => (
+          <Autocomplete
+            value={value ?? null}
+            className="selectForm"
+            options={options}
+            readOnly={setReadOnly}
+            disablePortal={true}
+            isOptionEqualToValue={(option, value) =>
+              option?.value === value?.value
+            }
+            getOptionLabel={(option) => option?.label ?? ""}
+            onChange={(event, selected) => {
+              if (selected?.value === "aggiungiCategoria") {
+                dispatch(setAddCategoryIsOpen(true));
+                return;
+              }
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                placeholder="Categorie"
+                margin="none"
+                variant="standard"
+              />
+            )}
+          />
+        )}
       />
     </div>
   );

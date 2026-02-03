@@ -87,6 +87,10 @@
               background-image: none;
               box-shadow: 0 0 0 1px var(--clr-secondary);
             }
+            &.small {
+              font-size: get-rem(16);
+              padding: get-rem(8) get-rem(24);
+            }
           }
         }
       }

@@ -10,6 +10,12 @@ export interface Product {
   index: number;
 }
 
+export interface Category {
+  id: string;
+  name: string;
+  tag: string;
+}
+
 export interface Card {
   key?: number;
   id: string;

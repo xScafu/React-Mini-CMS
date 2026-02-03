@@ -1,6 +1,6 @@
 import { Search } from "lucide-react";
 import { useDispatch } from "react-redux";
-import { setSearchName } from "../../../features/categoryFilter/searchSlice";
+import { setSearchName } from "../../../features/filters/searchSlice";
 
 export default function SearchFilter() {
   const dispatch = useDispatch();

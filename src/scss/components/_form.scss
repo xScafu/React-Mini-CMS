@@ -1,0 +1,16 @@
+@use "../inc/functions" as *;
+
+.selectForm {
+  padding: 0;
+  margin: 0;
+  .MuiAutocomplete-inputRoot {
+    padding: 0 !important;
+    &::before {
+      border: none !important;
+    }
+  }
+  .MuiAutocomplete-endAdornment {
+    top: 60%;
+    transform: translate(-10%, -50%);
+  }
+}

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCategories } from "../hook/useCategories";
-import { setFilterArray } from "../../../features/categoryFilter/filterSlice";
-import { setToggleSorting } from "../../../features/categoryFilter/sortingSlice";
+import { setFilterArray } from "../../../features/filters/filterSlice";
+import { setToggleSorting } from "../../../features/filters/sortingSlice";
 import SearchFilter from "./SearchFilter.component";
 
 export default function FiltersDialog() {

@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import type { Card, CardBilancio, Product } from "./Types";
+import type { Card, CardBilancio, Product, Category } from "./Types";
 
 const API_URL = "http://localhost:3000";
 
@@ -21,9 +21,9 @@ export async function postProduct(product: Product) {
         body: JSON.stringify(product),
       }),
       {
-        pending: "Caricamento",
-        success: "Prodotto caricato con successo",
-        error: "Non è stato possibile caricare il prodotto",
+        pending: "Caricamento.",
+        success: "Prodotto caricato con successo.",
+        error: "Non è stato possibile caricare il prodotto.",
       }
     )
     .then(() => getProducts())
@@ -37,9 +37,9 @@ export async function removeProduct(product: Product) {
         method: "DELETE",
       }),
       {
-        pending: "Caricamento",
-        success: "Prodotto rimosso con successo",
-        error: "Non è stato possibile rimuovere il prodotto",
+        pending: "Caricamento.",
+        success: "Prodotto rimosso con successo.",
+        error: "Non è stato possibile rimuovere il prodotto.",
       }
     )
     .then(() => getProducts())
@@ -53,9 +53,9 @@ export async function modifyProduct(product: Product) {
       body: JSON.stringify(product),
     }),
     {
-      pending: "Caricamento",
-      success: "Prodotto modificato con successo",
-      error: "Non è stato possibile modificare il prodotto",
+      pending: "Caricamento.",
+      success: "Prodotto modificato con successo.",
+      error: "Non è stato possibile modificare il prodotto.",
     }
   );
 }
@@ -71,6 +71,22 @@ export async function getCategories() {
   } catch (error) {
     console.log(error);
   }
+}
+
+export async function postCategories(categories: Category) {
+  toast
+    .promise(
+      fetch(`${API_URL}/categorie`, {
+        method: "POST",
+        body: JSON.stringify(categories),
+      }),
+      {
+        pending: "Caricamento.",
+        success: "Categorie caricate con successo.",
+        error: "Non è stato possibile caricare le catogorie dei prodotti.",
+      }
+    )
+    .then(() => getCategories());
 }
 
 export async function getCards() {

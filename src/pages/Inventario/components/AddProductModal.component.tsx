@@ -9,6 +9,7 @@ import { setAddIsOpen } from "../../../features/toggleDialogSlice";
 import { setRefreshComponent } from "../../../features/refreshComponentSlice";
 import { useCategories } from "../hook/useCategories";
 import SelectForm from "./SelectForm.component";
+import AddCategoryForm from "./AddCategoryForm.component";
 
 export default function AddProductModal() {
   const dialogRef = useRef(null);
@@ -55,6 +56,7 @@ export default function AddProductModal() {
         }
         modalBody={
           <div className="container js-modal-add-content">
+            <AddCategoryForm />
             <form className="grid js-form" onSubmit={handleSubmit(onSubmit)}>
               <p className="js-form-description form-description">
                 Inserisci i dati relativi al nuovo prodotto. <br /> Tutti i
