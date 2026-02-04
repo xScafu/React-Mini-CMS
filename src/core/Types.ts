@@ -11,9 +11,14 @@ export interface Product {
 }
 
 export interface Category {
-  id: string;
-  name: string;
-  tag: string;
+  id?: string;
+  nome: string;
+  tagCategoria: string;
+  sottoCategoria: {
+    id?: string;
+    nomeSottoCategoria: string;
+    tagSottoCategoria: string;
+  };
 }
 
 export interface Card {

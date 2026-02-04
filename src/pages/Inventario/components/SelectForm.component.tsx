@@ -2,7 +2,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { Controller } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { setAddCategoryIsOpen } from "../../../features/toggleDialogSlice";
+import { setAddCategoryIsOpen } from "../../../features/category/addCategorySlice";
 
 export default function SelectForm({
   control,

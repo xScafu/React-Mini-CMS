@@ -7,6 +7,7 @@ import searchReducer from "../features/filters/searchSlice";
 import refreshComponentReducer from "../features/refreshComponentSlice";
 import notificationsReducer from "../features/notifications/notificationsSlice";
 import editProductReducer from "../features/product/editProductSlice";
+import addCategoryReducer from "../features/category/addCategorySlice";
 
 export default configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export default configureStore({
     refresh: refreshComponentReducer,
     notifications: notificationsReducer,
     editProduct: editProductReducer,
+    addCategory: addCategoryReducer,
   },
 });

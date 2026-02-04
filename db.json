@@ -1,6 +1,27 @@
 {
-  "prodotti": [],
-  "categorie": [],
+  "prodotti": [
+    {
+      "id": "6a08",
+      "nome": "Carta",
+      "categoria": "Cancelleria",
+      "prezzo": "1",
+      "costo": "0.5",
+      "quantita": "1000",
+      "dataAcquisto": "2026-02-04",
+      "dataSpeciale": "2026-02-04"
+    }
+  ],
+  "categorie": [
+    {
+      "id": "19bb",
+      "nome": "Cancelleria",
+      "tagCategoria": "cancelleria",
+      "sottoCategoria": {
+        "nomeSottoCategoria": "Cartaceo",
+        "tagSottoCategoria": "cartaceo"
+      }
+    }
+  ],
   "cards": [
     {
       "id": "18g6",

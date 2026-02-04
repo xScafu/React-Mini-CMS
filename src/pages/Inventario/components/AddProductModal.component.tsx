@@ -1,19 +1,33 @@
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../components/Modal";
-import { postProduct } from "../../../core/ServerService";
 import InputForm from "./InputForm.component";
-
 import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { setAddIsOpen } from "../../../features/toggleDialogSlice";
-import { setRefreshComponent } from "../../../features/refreshComponentSlice";
 import { useCategories } from "../hook/useCategories";
 import SelectForm from "./SelectForm.component";
-import AddCategoryForm from "./AddCategoryForm.component";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import {
+  setAddCategoryIsOpen,
+  setCategorySubmit,
+  setSubCategoryIsChecked,
+} from "../../../features/category/addCategorySlice";
+import { postCategories, postProduct } from "../../../core/ServerService";
+import { setRefreshComponent } from "../../../features/refreshComponentSlice";
 
 export default function AddProductModal() {
   const dialogRef = useRef(null);
   const addIsOpen = useSelector((state: boolean) => state.dialog.addIsOpen);
+  const addCategoryIsOpen = useSelector(
+    (state: boolean) => state.addCategory.addCategoryIsOpen,
+  );
+  const subCategoryIsChecked: boolean = useSelector(
+    (state: boolean) => state.addCategory.subCategoryIsChecked,
+  );
+  const categorySubmit = useSelector(
+    (state: boolean) => state.addCategory.categorySubmit,
+  );
   const dispatch = useDispatch();
   const { categories, loading } = useCategories();
 
@@ -26,9 +40,37 @@ export default function AddProductModal() {
   } = useForm();
 
   const onSubmit = (data) => {
-    postProduct(data);
-    dispatch(setAddIsOpen(false));
-    dispatch(setRefreshComponent(true));
+    if (addCategoryIsOpen) {
+      const product = {
+        nome: data.nome,
+        categoria: data.nomeCategoria,
+        prezzo: data.prezzo,
+        costo: data.costo,
+        quantita: data.quantita,
+        dataAcquisto: data.dataAcquisto,
+        dataSpeciale: data.dataSpeciale,
+      };
+      const category = {
+        nome: data.nomeCategoria,
+        tagCategoria: data.tagCategoria,
+        sottoCategoria: {
+          nomeSottoCategoria: data.nomeSottoCategoria,
+          tagSottoCategoria: data.tagSottoCategoria,
+        },
+      };
+      console.log(category);
+      console.log(product);
+      postCategories(category);
+      dispatch(setAddCategoryIsOpen(false));
+      dispatch(setCategorySubmit(false));
+      postProduct(product);
+      dispatch(setAddIsOpen(false));
+      dispatch(setRefreshComponent(true));
+    } else {
+      postProduct(data);
+      dispatch(setAddIsOpen(false));
+      dispatch(setRefreshComponent(true));
+    }
   };
 
   useEffect(() => {
@@ -56,7 +98,6 @@ export default function AddProductModal() {
         }
         modalBody={
           <div className="container js-modal-add-content">
-            <AddCategoryForm />
             <form className="grid js-form" onSubmit={handleSubmit(onSubmit)}>
               <p className="js-form-description form-description">
                 Inserisci i dati relativi al nuovo prodotto. <br /> Tutti i
@@ -82,20 +123,75 @@ export default function AddProductModal() {
                   categoriesName={categories}
                   inputName="categoria"
                 />
-
-                {/* <InputForm
-                  registerProp={{
-                    ...register("categoria", { required: true }),
-                  }}
-                  gridClass="col-6"
-                  errorClass={errors.categoria ? "error" : ""}
-                  inputId="categoriaProdotto"
-                  labelContent={`Categoria${errors.categoria ? "*" : ""}`}
-                  inputType="text"
-                  inputName="categoria"
-                /> */}
               </div>
-
+              <div
+                className={`col-12 grid ${addCategoryIsOpen ? "" : "hidden"}`}
+              >
+                <div className={` row `}>
+                  <InputForm
+                    registerProp={{
+                      ...register("nomeCategoria", { required: true }),
+                    }}
+                    gridClass="col-6"
+                    errorClass={errors.nome ? "errore" : ""}
+                    inputId="nomeCategoria"
+                    labelContent={`Nome categoria${errors.nome ? "*" : ""}`}
+                    inputType="text"
+                    inputName="nomeCategoria"
+                  />
+                  <InputForm
+                    registerProp={{
+                      ...register("tagCategoria", { required: true }),
+                    }}
+                    gridClass="col-6"
+                    errorClass={errors.nome ? "errore" : ""}
+                    inputId="tagCategoria"
+                    labelContent={`Tag categoria${errors.nome ? "*" : ""}`}
+                    inputType="text"
+                    inputName="tagCategoria"
+                  />
+                </div>
+                <div className="row">
+                  <FormControlLabel
+                    className="col-11"
+                    labelPlacement="end"
+                    control={
+                      <Checkbox
+                        checked={subCategoryIsChecked}
+                        onChange={(event) => {
+                          const isChecked = event.target.checked;
+                          dispatch(setSubCategoryIsChecked(isChecked));
+                        }}
+                      />
+                    }
+                    label="Questa categoria prevede una o più sotto-categorie?"
+                  />
+                </div>
+                <div className={`row ${!subCategoryIsChecked ? "hidden" : ""}`}>
+                  <InputForm
+                    registerProp={{
+                      ...register("nomeSottoCategoria", { required: true }),
+                    }}
+                    gridClass="col-6"
+                    errorClass={errors.nome ? "errore" : ""}
+                    inputId="nomeSottoCategoria"
+                    labelContent={`Nome sotto-categoria${errors.nome ? "*" : ""}`}
+                    inputType="text"
+                    inputName="nomeSottoCategoria"
+                  />
+                  <InputForm
+                    registerProp={{
+                      ...register("tagSottoCategoria", { required: true }),
+                    }}
+                    gridClass="col-6"
+                    errorClass={errors.nome ? "errore" : ""}
+                    inputId="tagSottoCategoria"
+                    labelContent={`Tag sotto-categoria${errors.nome ? "*" : ""}`}
+                    inputType="text"
+                    inputName="tagSottoCategoria"
+                  />
+                </div>
+              </div>
               <div className="row">
                 <InputForm
                   registerProp={{ ...register("costo", { required: true }) }}

@@ -6,7 +6,6 @@ const toggleDialogSlice = createSlice({
     addIsOpen: false,
     removeIsOpen: false,
     detailIsOpen: false,
-    addCategoryIsOpen: false,
   },
   reducers: {
     setAddIsOpen: (state, action) => {
@@ -18,16 +17,9 @@ const toggleDialogSlice = createSlice({
     setDetailIsOpen: (state, action) => {
       state.detailIsOpen = action.payload;
     },
-    setAddCategoryIsOpen: (state, action) => {
-      state.addCategoryIsOpen = action.payload;
-    },
   },
 });
 
-export const {
-  setAddIsOpen,
-  setRemoveIsOpen,
-  setDetailIsOpen,
-  setAddCategoryIsOpen,
-} = toggleDialogSlice.actions;
+export const { setAddIsOpen, setRemoveIsOpen, setDetailIsOpen } =
+  toggleDialogSlice.actions;
 export default toggleDialogSlice.reducer;

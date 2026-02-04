@@ -12,7 +12,6 @@ import AddProductModal from "./components/AddProductModal.component";
 import RemoveProductModal from "./components/RemoveProductModal.component";
 import DetailProductModal from "./components/DetailProductModal.component";
 import { setRefreshComponent } from "../../features/refreshComponentSlice";
-import AddCategoryModal from "./components/AddCategoryForm.component";
 
 export default function Inventario() {
   const dispatch = useDispatch();

@@ -13,11 +13,11 @@ import SelectForm from "./SelectForm.component";
 
 export default function DetailProductModal() {
   const detailIsOpen = useSelector(
-    (state: boolean) => state.dialog.detailIsOpen
+    (state: boolean) => state.dialog.detailIsOpen,
   );
   const product = useSelector((state: Product) => state.product.product);
   const toggleEdit = useSelector(
-    (state: boolean) => state.editProduct.toggleEditProduct
+    (state: boolean) => state.editProduct.toggleEditProduct,
   );
 
   const dialogRef = useRef(null);
@@ -92,18 +92,6 @@ export default function DetailProductModal() {
                     inputName="categoria"
                     setReadOnly={!toggleEdit ? true : false}
                   />
-                  {/* <InputForm
-                    registerProp={{
-                      ...register("categoria", { required: true }),
-                    }}
-                    gridClass="col-6"
-                    errorClass={errors.categoria ? "error" : ""}
-                    inputId="categoriaProdotto"
-                    labelContent={`Categoria${errors.categoria ? "*" : ""}`}
-                    inputType="text"
-                    inputName="categoria"
-                    setReadOnly={!toggleEdit ? true : false}
-                  /> */}
                 </div>
 
                 <div className="row">
