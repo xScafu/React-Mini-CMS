@@ -42,7 +42,6 @@ export default function SelectForm({
               menuIsOpen={menuIsOpen}
               onInputChange={(value) => setValue(value)}
               value={value}
-              inputValue={value}
             />
           )}
         />
