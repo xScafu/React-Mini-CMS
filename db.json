@@ -1,27 +1,28 @@
 {
   "prodotti": [
     {
-      "id": "6a08",
-      "nome": "Carta",
-      "categoria": "Cancelleria",
-      "prezzo": "1",
-      "costo": "0.5",
-      "quantita": "1000",
-      "dataAcquisto": "2026-02-04",
-      "dataSpeciale": "2026-02-04"
+      "id": "fa41",
+      "nome": "Carne",
+      "categoria": {
+        "id": "gi42",
+        "nome": "Alimentare",
+        "tagCategoria": "alimentare",
+        "sottocategoria": [
+          {
+            "id": "15fw",
+            "nome": "Carne",
+            "tagSottoCategoria": "carne"
+          }
+        ]
+      },
+      "costo": "5",
+      "prezzo": "15",
+      "quantita": "400",
+      "dataAcquisto": "",
+      "dataSpeciale": ""
     }
   ],
-  "categorie": [
-    {
-      "id": "19bb",
-      "nome": "Cancelleria",
-      "tagCategoria": "cancelleria",
-      "sottoCategoria": {
-        "nomeSottoCategoria": "Cartaceo",
-        "tagSottoCategoria": "cartaceo"
-      }
-    }
-  ],
+
   "cards": [
     {
       "id": "18g6",

@@ -31,6 +31,10 @@ export default function AddProductModal() {
   const dispatch = useDispatch();
   const { categories, loading } = useCategories();
 
+  const getCategoriesName: string[] = categories.map(
+    (categoryName) => categoryName.nome,
+  );
+
   const {
     register,
     control,
@@ -53,7 +57,7 @@ export default function AddProductModal() {
       const category = {
         nome: data.nomeCategoria,
         tagCategoria: data.tagCategoria,
-        sottoCategoria: {
+        sottocategoria: {
           nomeSottoCategoria: data.nomeSottoCategoria,
           tagSottoCategoria: data.tagSottoCategoria,
         },
@@ -120,7 +124,7 @@ export default function AddProductModal() {
                   errorClass={errors.categoria ? "error" : ""}
                   inputId="categoriaProdotto"
                   labelContent={`Categoria${errors.categoria ? "*" : ""}`}
-                  categoriesName={categories}
+                  categoriesName={getCategoriesName}
                   inputName="categoria"
                 />
               </div>

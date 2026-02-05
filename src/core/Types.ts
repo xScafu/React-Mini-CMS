@@ -1,6 +1,13 @@
 export interface Product {
   id: string;
-  categoria: string;
+  categoria: {
+    nome: string;
+    tagCategoria: string;
+    sottocategoria?: {
+      nome: string;
+      tagSottoCategoria: string;
+    };
+  };
   nome: string;
   prezzo: number;
   quantita: number;
@@ -14,9 +21,9 @@ export interface Category {
   id?: string;
   nome: string;
   tagCategoria: string;
-  sottoCategoria: {
-    id?: string;
-    nomeSottoCategoria: string;
+  sottocategoria?: {
+    id: string;
+    nome: string;
     tagSottoCategoria: string;
   };
 }

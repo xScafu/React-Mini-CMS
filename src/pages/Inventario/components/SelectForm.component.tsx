@@ -1,8 +1,6 @@
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
+import { useState } from "react";
 import { Controller } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { setAddCategoryIsOpen } from "../../../features/category/addCategorySlice";
+import Select from "react-select/base";
 
 export default function SelectForm({
   control,
@@ -14,60 +12,41 @@ export default function SelectForm({
   setReadOnly,
   categoriesName,
 }) {
-  const dispatch = useDispatch();
+  const options = categoriesName.map((category: string) => ({
+    value: category.toLowerCase(),
+    label: category,
+  }));
+  const [value, setValue] = useState("");
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
-  const addOption = {
-    label: "+ Aggiungi nuova categoria",
-    value: "aggiungiCategoria",
-  };
-  const options = [
-    addOption,
-    ...(categoriesName ?? []).map((category: string) => ({
-      label: category,
-      value: category.toLowerCase(),
-    })),
-  ];
+  console.log(options);
 
   return (
-    <div className={`input-wrapper ${gridClass}`}>
-      <label
-        className={`js-labels js-nomeProdotto-label ${errorClass}`}
-        htmlFor={inputId}
-      >
-        {labelContent}
-      </label>
-      <Controller
-        control={control}
-        name={inputName}
-        defaultValue={null}
-        render={({ field: { onChange, value } }) => (
-          <Autocomplete
-            value={value ?? null}
-            className="selectForm"
-            options={options}
-            readOnly={setReadOnly}
-            disablePortal={true}
-            isOptionEqualToValue={(option, value) =>
-              option?.value === value?.value
-            }
-            getOptionLabel={(option) => option?.label ?? ""}
-            onChange={(event, selected) => {
-              if (selected?.value === "aggiungiCategoria") {
-                dispatch(setAddCategoryIsOpen(true));
-                return;
-              }
-            }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                placeholder="Categorie"
-                margin="none"
-                variant="standard"
-              />
-            )}
-          />
-        )}
-      />
-    </div>
+    <>
+      <div className={`selectForm input-wrapper ${gridClass}`}>
+        <label className={` ${errorClass}`} htmlFor={inputId}>
+          {labelContent}
+        </label>
+        <Controller
+          name={inputName}
+          control={control}
+          render={({ field: { onChange }, fieldState: { error } }) => (
+            <Select
+              placeholder=""
+              onChange={() => onChange}
+              className={`${error ? "error" : ""}`}
+              options={options}
+              onMenuOpen={() => setMenuIsOpen(true)}
+              onMenuClose={() => setMenuIsOpen(false)}
+              onBlur={() => setMenuIsOpen(false)}
+              menuIsOpen={menuIsOpen}
+              onInputChange={(value) => setValue(value)}
+              value={value}
+              inputValue={value}
+            />
+          )}
+        />
+      </div>
+    </>
   );
 }

@@ -8,8 +8,10 @@ export default function FiltersDialog() {
   const { categories, loading } = useCategories();
   const dispatch = useDispatch();
   const { sortingAscendance, sortingDescendance } = useSelector(
-    (state) => state.sorting
+    (state) => state.sorting,
   );
+
+  console.log(categories);
 
   if (!loading) {
     return (
@@ -20,24 +22,26 @@ export default function FiltersDialog() {
             {categories.map((category) => (
               <li className="js-filter filter">
                 <input
-                  id={category ? category.toLowerCase() : ""}
+                  id={category.id ? category.id.toLowerCase() : ""}
                   className="js-filter-checkbox"
                   type="checkbox"
-                  name={category ? category.toLowerCase() : "sconosciuto"}
+                  name={
+                    category.nome ? category.nome.toLowerCase() : "sconosciuto"
+                  }
                   onChange={(e) => {
                     dispatch(
                       setFilterArray({
                         name: e.target.name,
                         checked: e.target.checked,
-                      })
+                      }),
                     );
                   }}
                 ></input>
                 <label
                   className="js-filter-label"
-                  htmlFor={category ? category.toLowerCase() : ""}
+                  htmlFor={category.nome ? category.nome.toLowerCase() : ""}
                 >
-                  {category}
+                  {category.nome}
                 </label>
               </li>
             ))}

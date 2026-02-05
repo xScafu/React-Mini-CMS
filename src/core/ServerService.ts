@@ -64,9 +64,7 @@ export async function getCategories() {
   try {
     const response = await fetch(`${API_URL}/prodotti`);
     const data: Product[] = await response.json();
-    const categories: string[] = [
-      ...new Set(data.map((product) => product.categoria)),
-    ];
+    const categories = [...new Set(data.map((product) => product.categoria))];
     return categories;
   } catch (error) {
     console.log(error);
