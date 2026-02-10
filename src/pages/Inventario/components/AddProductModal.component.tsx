@@ -15,24 +15,23 @@ import {
 } from "../../../features/category/addCategorySlice";
 import { postCategories, postProduct } from "../../../core/ServerService";
 import { setRefreshComponent } from "../../../features/refreshComponentSlice";
+import type { Category, Product } from "../../../core/Types";
 
 export default function AddProductModal() {
   const dialogRef = useRef(null);
   const addIsOpen = useSelector((state: boolean) => state.dialog.addIsOpen);
   const addCategoryIsOpen = useSelector(
-    (state: boolean) => state.addCategory.addCategoryIsOpen,
+    (state: boolean) => state.addCategory.addCategoryIsOpen
   );
   const subCategoryIsChecked: boolean = useSelector(
-    (state: boolean) => state.addCategory.subCategoryIsChecked,
+    (state: boolean) => state.addCategory.subCategoryIsChecked
   );
-  const categorySubmit = useSelector(
-    (state: boolean) => state.addCategory.categorySubmit,
-  );
+
   const dispatch = useDispatch();
   const { categories, loading } = useCategories();
 
   const getCategoriesName: string[] = categories.map(
-    (categoryName) => categoryName.nome,
+    (categoryName) => categoryName.nomeCategoria
   );
 
   const {
@@ -43,24 +42,35 @@ export default function AddProductModal() {
     formState: { errors, isSubmitSuccessful },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: any) => {
     if (addCategoryIsOpen) {
-      const product = {
+      const product: Product = {
         nome: data.nome,
-        categoria: data.nomeCategoria,
-        prezzo: data.prezzo,
+        categoria: {
+          nomeCategoria: data.nomeCategoria,
+          tagCategoria: data.tagCategoria,
+          sottoCategorie: [
+            {
+              nomeSottoCategoria: data.nomeSottoCategoria,
+              tagSottoCategoria: data.tagSottoCategoria,
+            },
+          ],
+        },
         costo: data.costo,
+        prezzo: data.prezzo,
         quantita: data.quantita,
         dataAcquisto: data.dataAcquisto,
         dataSpeciale: data.dataSpeciale,
       };
-      const category = {
-        nome: data.nomeCategoria,
+      const category: Category = {
+        nomeCategoria: data.nomeCategoria,
         tagCategoria: data.tagCategoria,
-        sottocategoria: {
-          nomeSottoCategoria: data.nomeSottoCategoria,
-          tagSottoCategoria: data.tagSottoCategoria,
-        },
+        sottoCategorie: [
+          {
+            nomeSottoCategoria: data.nomeSottoCategoria,
+            tagSottoCategoria: data.tagSottoCategoria,
+          },
+        ],
       };
       console.log(category);
       console.log(product);
@@ -179,7 +189,9 @@ export default function AddProductModal() {
                     gridClass="col-6"
                     errorClass={errors.nome ? "errore" : ""}
                     inputId="nomeSottoCategoria"
-                    labelContent={`Nome sotto-categoria${errors.nome ? "*" : ""}`}
+                    labelContent={`Nome sotto-categoria${
+                      errors.nome ? "*" : ""
+                    }`}
                     inputType="text"
                     inputName="nomeSottoCategoria"
                   />
@@ -190,7 +202,9 @@ export default function AddProductModal() {
                     gridClass="col-6"
                     errorClass={errors.nome ? "errore" : ""}
                     inputId="tagSottoCategoria"
-                    labelContent={`Tag sotto-categoria${errors.nome ? "*" : ""}`}
+                    labelContent={`Tag sotto-categoria${
+                      errors.nome ? "*" : ""
+                    }`}
                     inputType="text"
                     inputName="tagSottoCategoria"
                   />
@@ -265,6 +279,8 @@ export default function AddProductModal() {
                   className="btn js-btn-return"
                   onClick={() => {
                     dispatch(setAddIsOpen(false));
+                    dispatch(setAddCategoryIsOpen(false));
+                    dispatch(setSubCategoryIsChecked(false));
                     reset();
                   }}
                 >

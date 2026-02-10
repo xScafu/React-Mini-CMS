@@ -1,31 +1,36 @@
 export interface Product {
-  id: string;
+  id?: string;
   categoria: {
-    nome: string;
+    id?: string;
+    nomeCategoria: string;
     tagCategoria: string;
-    sottocategoria?: {
-      nome: string;
-      tagSottoCategoria: string;
-    };
+    sottoCategorie?: [
+      {
+        id?: string;
+        nomeSottoCategoria: string;
+        tagSottoCategoria: string;
+      }
+    ];
   };
   nome: string;
-  prezzo: number;
-  quantita: number;
-  costo: number;
+  prezzo: string;
+  quantita: string;
+  costo: string;
   dataAcquisto: string;
   dataSpeciale?: string;
-  index: number;
 }
 
 export interface Category {
   id?: string;
-  nome: string;
+  nomeCategoria: string;
   tagCategoria: string;
-  sottocategoria?: {
-    id: string;
-    nome: string;
-    tagSottoCategoria: string;
-  };
+  sottoCategorie?: [
+    {
+      id?: string;
+      nomeSottoCategoria: string;
+      tagSottoCategoria: string;
+    }
+  ];
 }
 
 export interface Card {

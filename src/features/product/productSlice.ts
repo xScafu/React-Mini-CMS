@@ -6,10 +6,21 @@ const productSlice = createSlice({
     product: {
       id: "",
       nome: "",
-      tipo: "",
-      costo: 0,
-      prezzo: 0,
-      quantita: 0,
+      categoria: {
+        id: "",
+        nomeCategoria: "",
+        tagCategoria: "",
+        sottoCategorie: [
+          {
+            id: "",
+            nomeSottoCategoria: "",
+            tagSottoCategoria: "",
+          },
+        ],
+      },
+      costo: "",
+      prezzo: "",
+      quantita: "",
       dataAcquisto: "",
       dataSpeciale: "",
     },

@@ -1,6 +1,8 @@
-import { useState } from "react";
 import { Controller } from "react-hook-form";
-import Select from "react-select/base";
+import Select from "react-select";
+import { setAddCategoryIsOpen } from "../../../features/category/addCategorySlice";
+import { useDispatch, useSelector } from "react-redux";
+import type { Category } from "../../../core/Types";
 
 export default function SelectForm({
   control,
@@ -9,43 +11,58 @@ export default function SelectForm({
   inputId,
   labelContent,
   errorClass,
-  setReadOnly,
   categoriesName,
+  setReadOnly,
 }) {
-  const options = categoriesName.map((category: string) => ({
+  const detailIsOpen = useSelector(
+    (state: boolean) => state.dialog.detailIsOpen
+  );
+  const dispatch = useDispatch();
+
+  const addCategory = {
+    value: "aggiungiCategoria",
+    label: "+ Aggiungi nuova categoria",
+  };
+
+  const options = categoriesName.map((category) => ({
     value: category.toLowerCase(),
     label: category,
   }));
-  const [value, setValue] = useState("");
-  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
-  console.log(options);
+  options.push(addCategory);
 
   return (
-    <>
-      <div className={`selectForm input-wrapper ${gridClass}`}>
-        <label className={` ${errorClass}`} htmlFor={inputId}>
-          {labelContent}
-        </label>
-        <Controller
-          name={inputName}
-          control={control}
-          render={({ field: { onChange }, fieldState: { error } }) => (
-            <Select
-              placeholder=""
-              onChange={() => onChange}
-              className={`${error ? "error" : ""}`}
-              options={options}
-              onMenuOpen={() => setMenuIsOpen(true)}
-              onMenuClose={() => setMenuIsOpen(false)}
-              onBlur={() => setMenuIsOpen(false)}
-              menuIsOpen={menuIsOpen}
-              onInputChange={(value) => setValue(value)}
-              value={value}
-            />
-          )}
-        />
-      </div>
-    </>
+    <div className={`selectForm input-wrapper ${gridClass}`}>
+      <label className={errorClass} htmlFor={inputId}>
+        {labelContent}
+      </label>
+
+      <Controller
+        name={inputName}
+        control={control}
+        rules={{ required: true }}
+        render={({ field, fieldState }) => (
+          <Select
+            isDisabled={setReadOnly}
+            options={options}
+            isClearable
+            placeholder=""
+            classNamePrefix={"react-select"}
+            className={fieldState.error ? "error" : ""}
+            onBlur={field.onBlur}
+            value={
+              options.find((option) => option.value === field.value?.value) ||
+              null
+            }
+            onChange={(selectedOption) => {
+              field.onChange(selectedOption);
+              if (selectedOption.value === addCategory.value) {
+                dispatch(setAddCategoryIsOpen(true));
+              }
+            }}
+          />
+        )}
+      />
+    </div>
   );
 }

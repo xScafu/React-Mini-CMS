@@ -13,11 +13,11 @@ import SelectForm from "./SelectForm.component";
 
 export default function DetailProductModal() {
   const detailIsOpen = useSelector(
-    (state: boolean) => state.dialog.detailIsOpen,
+    (state: boolean) => state.dialog.detailIsOpen
   );
   const product = useSelector((state: Product) => state.product.product);
   const toggleEdit = useSelector(
-    (state: boolean) => state.editProduct.toggleEditProduct,
+    (state: boolean) => state.editProduct.toggleEditProduct
   );
 
   const dialogRef = useRef(null);
@@ -40,7 +40,7 @@ export default function DetailProductModal() {
   } = useForm();
 
   // Dopo la modifica del prodotto
-  const onSubmit = (data) => {
+  const onSubmit = (data: Product) => {
     modifyProduct(data);
     dispatch(setDetailIsOpen(false));
     dispatch(setToggleEditProduct(false));
@@ -88,7 +88,9 @@ export default function DetailProductModal() {
                     errorClass={errors.categoria ? "error" : ""}
                     inputId="categoriaProdotto"
                     labelContent={`Categoria${errors.categoria ? "*" : ""}`}
-                    categoriesName={categories}
+                    categoriesName={categories.map(
+                      (category) => category.nomeCategoria
+                    )}
                     inputName="categoria"
                     setReadOnly={!toggleEdit ? true : false}
                   />

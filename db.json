@@ -1,28 +1,38 @@
 {
   "prodotti": [
     {
-      "id": "fa41",
+      "id": "5885",
       "nome": "Carne",
       "categoria": {
-        "id": "gi42",
-        "nome": "Alimentare",
+        "nomeCategoria": "Alimentare",
         "tagCategoria": "alimentare",
-        "sottocategoria": [
+        "sottoCategorie": [
           {
-            "id": "15fw",
-            "nome": "Carne",
-            "tagSottoCategoria": "carne"
+            "nomeSottoCategoria": "Carne bovina",
+            "tagSottoCategoria": "carne-bovina"
           }
         ]
       },
       "costo": "5",
       "prezzo": "15",
-      "quantita": "400",
-      "dataAcquisto": "",
-      "dataSpeciale": ""
+      "quantita": "500",
+      "dataAcquisto": "2026-02-06",
+      "dataSpeciale": "2026-02-06"
     }
   ],
-
+  "categorie": [
+    {
+      "id": "9b65",
+      "nomeCategoria": "Alimentare",
+      "tagCategoria": "alimentare",
+      "sottoCategorie": [
+        {
+          "nomeSottoCategoria": "Carne bovina",
+          "tagSottoCategoria": "carne-bovina"
+        }
+      ]
+    }
+  ],
   "cards": [
     {
       "id": "18g6",
