@@ -13,11 +13,14 @@ import SelectForm from "./SelectForm.component";
 
 export default function DetailProductModal() {
   const detailIsOpen = useSelector(
-    (state: boolean) => state.dialog.detailIsOpen
+    (state: boolean) => state.dialog.detailIsOpen,
   );
-  const product = useSelector((state: Product) => state.product.product);
+  const product: Product = useSelector(
+    (state: Product) => state.product.product,
+  );
+
   const toggleEdit = useSelector(
-    (state: boolean) => state.editProduct.toggleEditProduct
+    (state: boolean) => state.editProduct.toggleEditProduct,
   );
 
   const dialogRef = useRef(null);
@@ -40,8 +43,30 @@ export default function DetailProductModal() {
   } = useForm();
 
   // Dopo la modifica del prodotto
-  const onSubmit = (data: Product) => {
-    modifyProduct(data);
+  const onSubmit = (data) => {
+    console.log(data);
+    const updateProduct: Product = {
+      nome: data.nome,
+      categoria: {
+        idCategoria: data.categoria.id,
+        nomeCategoria: data.categoria.nomeCategoria,
+        tagCategoria: data.categoria.tagCategoria,
+        sottoCategorie: [
+          {
+            nomeSottoCategoria:
+              data.categoria.sottoCategorie[0].nomeSottoCategoria,
+            tagSottoCategoria:
+              data.categoria.sottoCategorie[0].tagSottoCategoria,
+          },
+        ],
+      },
+      costo: data.costo,
+      prezzo: data.prezzo,
+      quantita: data.quantita,
+      dataAcquisto: data.dataAcquisto,
+      dataSpeciale: data.dataSpeciale,
+    };
+    modifyProduct(updateProduct);
     dispatch(setDetailIsOpen(false));
     dispatch(setToggleEditProduct(false));
     dispatch(setRefreshComponent(true));
@@ -53,19 +78,17 @@ export default function DetailProductModal() {
     }
   }, [product, reset]);
 
-  if (detailIsOpen)
+  if (detailIsOpen && !loading)
     return (
       <>
         <Modal
           modalId={"detailDialog"}
           modalRef={dialogRef}
-          modalHeader={
-            <h1 className="js-modal-remove-header-title title">Dettaglio</h1>
-          }
+          modalHeader={<h1 className=" title">Dettaglio</h1>}
           modalBody={
-            <div className="container js-modal-remove-content">
-              <form className="grid js-form" onSubmit={handleSubmit(onSubmit)}>
-                <p className="js-form-description form-description">
+            <div className="container ">
+              <form className="grid " onSubmit={handleSubmit(onSubmit)}>
+                <p className=" form-description">
                   Clicca su "Modifica" per modificare il prodotto.
                 </p>
                 <div className="row">
@@ -89,9 +112,76 @@ export default function DetailProductModal() {
                     inputId="categoriaProdotto"
                     labelContent={`Categoria${errors.categoria ? "*" : ""}`}
                     categoriesName={categories.map(
-                      (category) => category.nomeCategoria
+                      (category) => category.nomeCategoria,
                     )}
                     inputName="categoria"
+                    setReadOnly={!toggleEdit ? true : false}
+                    setValue={product.categoria}
+                  />
+                </div>
+
+                <div className={` row `}>
+                  <InputForm
+                    registerProp={{
+                      ...register("categoria.idCategoria", { required: true }),
+                    }}
+                    gridClass="col-6"
+                    errorClass={errors.idCategoria ? "error" : ""}
+                    inputId="idCategoria"
+                    labelContent={`ID categoria${
+                      errors.idCategoria ? "*" : ""
+                    }`}
+                    inputType="text"
+                    inputName="idCategoria"
+                    setReadOnly={true}
+                  />
+
+                  <InputForm
+                    registerProp={{
+                      ...register("categoria.tagCategoria", { required: true }),
+                    }}
+                    gridClass="col-6"
+                    errorClass={errors.tagCategoria ? "errore" : ""}
+                    inputId="tagCategoria"
+                    labelContent={`Tag categoria${errors.tagCategoria ? "*" : ""}`}
+                    inputType="text"
+                    inputName="tagCategoria"
+                    setReadOnly={!toggleEdit ? true : false}
+                  />
+
+                  <InputForm
+                    registerProp={{
+                      ...register(
+                        "categoria.sottoCategorie[0].nomeSottoCategoria",
+                        { required: true },
+                      ),
+                    }}
+                    gridClass="col-6"
+                    errorClass={errors.nomeSottoCategoria ? "errore" : ""}
+                    inputId="nomeSottoCategoria"
+                    labelContent={`Nome sotto-categoria${
+                      errors.nomeSottoCategoria ? "*" : ""
+                    }`}
+                    inputType="text"
+                    inputName="nomeSottoCategoria"
+                    setReadOnly={!toggleEdit ? true : false}
+                  />
+
+                  <InputForm
+                    registerProp={{
+                      ...register(
+                        "categoria.sottoCategorie[0].tagSottoCategoria",
+                        { required: true },
+                      ),
+                    }}
+                    gridClass="col-6"
+                    errorClass={errors.tagSottoCategoria ? "errore" : ""}
+                    inputId="tagSottoCategoria"
+                    labelContent={`Tag sotto-categoria${
+                      errors.tagSottoCategoria ? "*" : ""
+                    }`}
+                    inputType="text"
+                    inputName="tagSottoCategoria"
                     setReadOnly={!toggleEdit ? true : false}
                   />
                 </div>
@@ -107,6 +197,7 @@ export default function DetailProductModal() {
                     inputName="costo"
                     setReadOnly={!toggleEdit ? true : false}
                   />
+
                   <InputForm
                     registerProp={{ ...register("prezzo", { required: true }) }}
                     gridClass="col-6"
@@ -132,6 +223,7 @@ export default function DetailProductModal() {
                     inputName="quantita"
                     setReadOnly={!toggleEdit ? true : false}
                   />
+
                   <InputForm
                     registerProp={{
                       ...register("dataAcquisto", { required: true }),
@@ -146,6 +238,7 @@ export default function DetailProductModal() {
                     inputName="dataAcquisto"
                     setReadOnly={!toggleEdit ? true : false}
                   />
+
                   <InputForm
                     registerProp={{
                       ...register("dataSpeciale", { required: true }),
@@ -160,6 +253,7 @@ export default function DetailProductModal() {
                     inputName="dataSpeciale"
                     setReadOnly={!toggleEdit ? true : false}
                   />
+
                   <InputForm
                     registerProp={{
                       ...register("id", { required: true }),
@@ -200,6 +294,7 @@ export default function DetailProductModal() {
                     onClick={() => {
                       dispatch(setDetailIsOpen(false));
                       dispatch(setToggleEditProduct(false));
+                      reset();
                     }}
                   >
                     Annulla

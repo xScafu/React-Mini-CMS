@@ -7,12 +7,12 @@ const productSlice = createSlice({
       id: "",
       nome: "",
       categoria: {
-        id: "",
+        idCategoria: "",
         nomeCategoria: "",
         tagCategoria: "",
         sottoCategorie: [
           {
-            id: "",
+            idSottoCategoria: "",
             nomeSottoCategoria: "",
             tagSottoCategoria: "",
           },

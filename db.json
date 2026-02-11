@@ -4,6 +4,7 @@
       "id": "5885",
       "nome": "Carne",
       "categoria": {
+        "idCategoria": "9b65",
         "nomeCategoria": "Alimentare",
         "tagCategoria": "alimentare",
         "sottoCategorie": [
@@ -18,6 +19,46 @@
       "quantita": "500",
       "dataAcquisto": "2026-02-06",
       "dataSpeciale": "2026-02-06"
+    },
+    {
+      "id": "b1be",
+      "nome": "Carta",
+      "categoria": {
+        "idCategoria": "e6db",
+        "nomeCategoria": "Cancelleria",
+        "tagCategoria": "cancelleria",
+        "sottoCategorie": [
+          {
+            "nomeSottoCategoria": "Cartaceo",
+            "tagSottoCategoria": "cartaceo"
+          }
+        ]
+      },
+      "costo": "0.5",
+      "prezzo": "1",
+      "quantita": "500",
+      "dataAcquisto": "2026-02-10",
+      "dataSpeciale": "2026-02-10"
+    },
+    {
+      "id": "6dd1",
+      "nome": "Laptop",
+      "categoria": {
+        "idCategoria": "5b2b",
+        "nomeCategoria": "Elettronica",
+        "tagCategoria": "elettronica",
+        "sottoCategorie": [
+          {
+            "nomeSottoCategoria": "PC portatili",
+            "tagSottoCategoria": "pc-portatili"
+          }
+        ]
+      },
+      "costo": "200",
+      "prezzo": "500",
+      "quantita": "30",
+      "dataAcquisto": "2026-02-10",
+      "dataSpeciale": "2026-02-10"
     }
   ],
   "categorie": [
@@ -29,6 +70,28 @@
         {
           "nomeSottoCategoria": "Carne bovina",
           "tagSottoCategoria": "carne-bovina"
+        }
+      ]
+    },
+    {
+      "id": "e6db",
+      "nomeCategoria": "Cancelleria",
+      "tagCategoria": "cancelleria",
+      "sottoCategorie": [
+        {
+          "nomeSottoCategoria": "Cartaceo",
+          "tagSottoCategoria": "cartaceo"
+        }
+      ]
+    },
+    {
+      "id": "5b2b",
+      "nomeCategoria": "Elettronica",
+      "tagCategoria": "elettronica",
+      "sottoCategorie": [
+        {
+          "nomeSottoCategoria": "PC portatili",
+          "tagSottoCategoria": "pc-portatili"
         }
       ]
     }

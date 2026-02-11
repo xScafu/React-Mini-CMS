@@ -13,34 +13,35 @@ import {
   setCategorySubmit,
   setSubCategoryIsChecked,
 } from "../../../features/category/addCategorySlice";
-import { postCategories, postProduct } from "../../../core/ServerService";
+import {
+  getProducts,
+  postCategories,
+  postProduct,
+} from "../../../core/ServerService";
 import { setRefreshComponent } from "../../../features/refreshComponentSlice";
 import type { Category, Product } from "../../../core/Types";
+import Form from "../../../components/Form";
 
 export default function AddProductModal() {
+  const product = useSelector((state) => state.product.product);
+
+  const populateForm = Object.entries(product);
+
   const dialogRef = useRef(null);
   const addIsOpen = useSelector((state: boolean) => state.dialog.addIsOpen);
   const addCategoryIsOpen = useSelector(
-    (state: boolean) => state.addCategory.addCategoryIsOpen
+    (state: boolean) => state.addCategory.addCategoryIsOpen,
   );
   const subCategoryIsChecked: boolean = useSelector(
-    (state: boolean) => state.addCategory.subCategoryIsChecked
+    (state: boolean) => state.addCategory.subCategoryIsChecked,
   );
 
   const dispatch = useDispatch();
   const { categories, loading } = useCategories();
 
   const getCategoriesName: string[] = categories.map(
-    (categoryName) => categoryName.nomeCategoria
+    (categoryName) => categoryName.nomeCategoria,
   );
-
-  const {
-    register,
-    control,
-    handleSubmit,
-    reset,
-    formState: { errors, isSubmitSuccessful },
-  } = useForm();
 
   const onSubmit = (data: any) => {
     if (addCategoryIsOpen) {
@@ -96,12 +97,6 @@ export default function AddProductModal() {
     }
   });
 
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-    }
-  }, [isSubmitSuccessful, reset]);
-
   return (
     <>
       <Modal
@@ -112,7 +107,14 @@ export default function AddProductModal() {
         }
         modalBody={
           <div className="container js-modal-add-content">
-            <form className="grid js-form" onSubmit={handleSubmit(onSubmit)}>
+            <Form
+              onSubmit={onSubmit}
+              formInputs={populateForm ? populateForm : null}
+              payload={getCategoriesName}
+              inputType={"text"}
+              state={addIsOpen ? 1 : 0}
+            />
+            {/* <form className="grid js-form" onSubmit={handleSubmit(onSubmit)}>
               <p className="js-form-description form-description">
                 Inserisci i dati relativi al nuovo prodotto. <br /> Tutti i
                 campi sono obbligatori.
@@ -144,7 +146,9 @@ export default function AddProductModal() {
                 <div className={` row `}>
                   <InputForm
                     registerProp={{
-                      ...register("nomeCategoria", { required: true }),
+                      ...register("categoria.nomeCategoria", {
+                        required: true,
+                      }),
                     }}
                     gridClass="col-6"
                     errorClass={errors.nome ? "errore" : ""}
@@ -155,7 +159,10 @@ export default function AddProductModal() {
                   />
                   <InputForm
                     registerProp={{
-                      ...register("tagCategoria", { required: true }),
+                      ...register("categoria.tagCategoria", {
+                        required: true,
+                        pattern: /[a-z]/,
+                      }),
                     }}
                     gridClass="col-6"
                     errorClass={errors.nome ? "errore" : ""}
@@ -184,7 +191,12 @@ export default function AddProductModal() {
                 <div className={`row ${!subCategoryIsChecked ? "hidden" : ""}`}>
                   <InputForm
                     registerProp={{
-                      ...register("nomeSottoCategoria", { required: true }),
+                      ...register(
+                        "categoria.sottoCategoria.nomeSottoCategoria",
+                        {
+                          required: true,
+                        },
+                      ),
                     }}
                     gridClass="col-6"
                     errorClass={errors.nome ? "errore" : ""}
@@ -197,7 +209,13 @@ export default function AddProductModal() {
                   />
                   <InputForm
                     registerProp={{
-                      ...register("tagSottoCategoria", { required: true }),
+                      ...register(
+                        "categoria.sottoCategoria.tagSottoCategoria",
+                        {
+                          required: true,
+                          pattern: /[a-z]/,
+                        },
+                      ),
                     }}
                     gridClass="col-6"
                     errorClass={errors.nome ? "errore" : ""}
@@ -207,6 +225,13 @@ export default function AddProductModal() {
                     }`}
                     inputType="text"
                     inputName="tagSottoCategoria"
+                    errorMessage={
+                      errors.tagSottoCategoria?.type === "pattern" && (
+                        <p className="error" role="alert">
+                          Sono permesse solo lettere minuscole
+                        </p>
+                      )
+                    }
                   />
                 </div>
               </div>
@@ -287,7 +312,7 @@ export default function AddProductModal() {
                   Annulla
                 </button>
               </div>
-            </form>
+            </form> */}
           </div>
         }
       ></Modal>

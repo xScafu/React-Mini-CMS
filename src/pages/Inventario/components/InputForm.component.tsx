@@ -7,24 +7,23 @@ export default function InputForm({
   errorClass,
   registerProp,
   setReadOnly,
+  errorMessage,
 }) {
   return (
     <>
       <div className={`input-wrapper ${gridClass}`}>
-        <label
-          className={`js-labels js-nomeProdotto-label ${errorClass}`}
-          htmlFor={inputId}
-        >
+        <label className={` ${errorClass}`} htmlFor={inputId}>
           {labelContent}
         </label>
         <input
           {...registerProp}
-          className={`js-input ${errorClass}`}
+          className={`${errorClass}`}
           type={inputType}
           name={inputName}
           id={inputId}
           readOnly={setReadOnly}
         ></input>
+        {errorMessage}
       </div>
     </>
   );

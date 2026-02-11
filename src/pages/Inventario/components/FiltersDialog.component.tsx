@@ -26,7 +26,9 @@ export default function FiltersDialog() {
                   className="js-filter-checkbox"
                   type="checkbox"
                   name={
-                    category.nome ? category.nome.toLowerCase() : "sconosciuto"
+                    category.nomeCategoria
+                      ? category.nomeCategoria.toLowerCase()
+                      : "sconosciuto"
                   }
                   onChange={(e) => {
                     dispatch(
@@ -39,9 +41,13 @@ export default function FiltersDialog() {
                 ></input>
                 <label
                   className="js-filter-label"
-                  htmlFor={category.nome ? category.nome.toLowerCase() : ""}
+                  htmlFor={
+                    category.nomeCategoria
+                      ? category.nomeCategoria.toLowerCase()
+                      : ""
+                  }
                 >
-                  {category.nome}
+                  {category.nomeCategoria}
                 </label>
               </li>
             ))}

@@ -1,36 +1,24 @@
+export interface UnderCategory {
+  idSottoCategoria?: string;
+  nomeSottoCategoria: string;
+  tagSottoCategoria: string;
+}
+
+export interface Category {
+  idCategoria?: string;
+  nomeCategoria: string;
+  tagCategoria: string;
+  sottoCategorie?: UnderCategory[];
+}
 export interface Product {
   id?: string;
-  categoria: {
-    id?: string;
-    nomeCategoria: string;
-    tagCategoria: string;
-    sottoCategorie?: [
-      {
-        id?: string;
-        nomeSottoCategoria: string;
-        tagSottoCategoria: string;
-      }
-    ];
-  };
+  categoria: Category;
   nome: string;
   prezzo: string;
   quantita: string;
   costo: string;
   dataAcquisto: string;
   dataSpeciale?: string;
-}
-
-export interface Category {
-  id?: string;
-  nomeCategoria: string;
-  tagCategoria: string;
-  sottoCategorie?: [
-    {
-      id?: string;
-      nomeSottoCategoria: string;
-      tagSottoCategoria: string;
-    }
-  ];
 }
 
 export interface Card {

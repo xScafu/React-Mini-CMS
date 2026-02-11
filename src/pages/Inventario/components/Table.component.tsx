@@ -29,7 +29,7 @@ export default function Table() {
               {filteredProducts.map((product: Product) => (
                 <div className="row" key={product.id}>
                   <p className="col-3">{product.nome}</p>
-                  <p className="col-3">{product.categoria.nome}</p>
+                  <p className="col-3">{product.categoria.nomeCategoria}</p>
                   <p className="col-3">{product.quantita}</p>
                   <div className="table-btns col-3">
                     <button
@@ -47,11 +47,13 @@ export default function Table() {
                     <button
                       className="btn-icon"
                       onClick={() => {
-                        dispatch(setAddIsOpen(false));
-                        dispatch(setRemoveIsOpen(true));
-                        dispatch(setDetailIsOpen(false));
-                        dispatch(setRefreshComponent(false));
-                        dispatch(setProduct(product));
+                        if (!loading) {
+                          dispatch(setAddIsOpen(false));
+                          dispatch(setRemoveIsOpen(true));
+                          dispatch(setDetailIsOpen(false));
+                          dispatch(setRefreshComponent(false));
+                          dispatch(setProduct(product));
+                        }
                       }}
                       title="Elimina prodotto"
                     >

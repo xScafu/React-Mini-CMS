@@ -29,6 +29,11 @@
       }
     }
   }
+  .react-select__value-container {
+    height: 100%;
+    padding: 0;
+    align-content: center;
+  }
 
   .error {
     .react-select__control {

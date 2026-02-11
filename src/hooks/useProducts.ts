@@ -29,7 +29,7 @@ export function useProducts() {
     // FILTER
     if (filters.length > 0) {
       result = result.filter((product) =>
-        filters.includes(product.categoria.nome.toLowerCase()),
+        filters.includes(product.categoria.nomeCategoria.toLowerCase()),
       );
     }
 
