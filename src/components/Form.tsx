@@ -57,6 +57,21 @@ export default function Form({
     (state) => state.editProduct.toggleEditProduct,
   );
 
+  const productInputs = {
+    id: payload.product?.id,
+    nome: payload.product?.nome,
+    idCategoria: payload.product?.categoria.idCategoria,
+    nomeCategoria: payload.product?.categoria.nomeCategoria,
+    tagCategoria: payload.product?.categoria.tagCategoria,
+    idSottoCategoria: payload.product?.idSottoCategoria,
+    nomeSottoCategoria: payload.product?.nomeSottoCategoria,
+    costo: payload.product?.costo,
+    prezzo: payload.product?.prezzo,
+    quantita: payload.product?.quantita,
+    dataAcquisto: payload.product?.dataAcquisto,
+    dataSpeciale: payload.product?.dataSpeciale,
+  };
+
   const dispatch = useDispatch();
   const { loading, labels } = useLabels();
 
@@ -76,21 +91,9 @@ export default function Form({
 
   useEffect(() => {
     if (detailIsOpen) {
-      const subCategory = payload.product?.categoria.sottoCategorie.map(
-        (obj: UnderCategory) => Object.entries(obj),
-      );
-
-      const category = Object.entries(
-        payload.product ? payload.product?.categoria : {},
-      );
-
-      const resetForm = [].concat(category, subCategory);
-
-      console.log(resetForm);
-      console.log(payload.product);
-      reset(payload.product);
+      reset(productInputs);
     }
-  }, [detailIsOpen, payload.product, reset]);
+  }, [detailIsOpen, reset]);
 
   const underCategory = category.sottoCategorie[0];
 
