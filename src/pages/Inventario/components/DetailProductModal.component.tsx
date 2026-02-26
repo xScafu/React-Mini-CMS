@@ -2,92 +2,97 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../components/Modal";
 import { useRef, useEffect } from "react";
 import { setDetailIsOpen } from "../../../features/toggleDialogSlice";
-import InputForm from "./InputForm.component";
-import { useForm } from "react-hook-form";
-import { setToggleEditProduct } from "../../../features/product/editProductSlice";
-import type { Product } from "../../../core/Types";
+
+import { type Category, type Product } from "../../../core/Types";
 import { setRefreshComponent } from "../../../features/refreshComponentSlice";
 import { modifyProduct } from "../../../core/ServerService";
 import { useCategories } from "../hook/useCategories";
-import SelectForm from "./SelectForm.component";
+
+import Form from "../../../components/Form";
+import {
+  setAddCategoryIsOpen,
+  setCategorySubmit,
+} from "../../../features/category/addCategorySlice";
 
 export default function DetailProductModal() {
+  const product: Product = useSelector((state) => state.product.product);
+
+  const populateForm = Object.entries(product);
+
+  const dialogRef = useRef(null);
   const detailIsOpen = useSelector(
     (state: boolean) => state.dialog.detailIsOpen,
   );
-  const product: Product = useSelector(
-    (state: Product) => state.product.product,
-  );
 
-  const toggleEdit = useSelector(
-    (state: boolean) => state.editProduct.toggleEditProduct,
-  );
-
-  const dialogRef = useRef(null);
   const dispatch = useDispatch();
   const { categories, loading } = useCategories();
 
-  useEffect(() => {
-    const dialogState = dialogRef.current;
-    if (detailIsOpen) {
-      dialogState.showModal();
-    }
-  });
+  const getCategoriesName: string[] = categories.map(
+    (categoryName) => categoryName.nomeCategoria,
+  );
 
-  const {
-    register,
-    control,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const payload = {
+    getCategoriesName: getCategoriesName,
+    product: product,
+  };
 
-  // Dopo la modifica del prodotto
-  const onSubmit = (data) => {
+  const onSubmit = (data: any) => {
     console.log(data);
-    const updateProduct: Product = {
+
+    const category: Category = {
+      nomeCategoria: data.categoria.label,
+      tagCategoria: data.categoria.value,
+      sottoCategorie: [
+        {
+          nomeSottoCategoria: data.nomeSottoCategoria,
+          tagSottoCategoria: data.nomeSottoCategoria.toLowerCase(),
+        },
+      ],
+    };
+    const product: Product = {
       nome: data.nome,
-      categoria: {
-        idCategoria: data.categoria.id,
-        nomeCategoria: data.categoria.nomeCategoria,
-        tagCategoria: data.categoria.tagCategoria,
-        sottoCategorie: [
-          {
-            nomeSottoCategoria:
-              data.categoria.sottoCategorie[0].nomeSottoCategoria,
-            tagSottoCategoria:
-              data.categoria.sottoCategorie[0].tagSottoCategoria,
-          },
-        ],
-      },
+      categoria: category,
       costo: data.costo,
       prezzo: data.prezzo,
       quantita: data.quantita,
       dataAcquisto: data.dataAcquisto,
       dataSpeciale: data.dataSpeciale,
     };
-    modifyProduct(updateProduct);
+    console.log(category);
+    console.log(product);
+
+    dispatch(setAddCategoryIsOpen(false));
+    dispatch(setCategorySubmit(false));
+    // modifyCategory(category)
+    modifyProduct(product);
     dispatch(setDetailIsOpen(false));
-    dispatch(setToggleEditProduct(false));
     dispatch(setRefreshComponent(true));
   };
 
   useEffect(() => {
-    if (product) {
-      reset(product);
+    const dialogState = dialogRef.current;
+    if (detailIsOpen) {
+      dialogState.showModal();
+    } else {
+      dialogState.close();
     }
-  }, [product, reset]);
+  });
 
-  if (detailIsOpen && !loading)
-    return (
-      <>
-        <Modal
-          modalId={"detailDialog"}
-          modalRef={dialogRef}
-          modalHeader={<h1 className=" title">Dettaglio</h1>}
-          modalBody={
-            <div className="container ">
-              <form className="grid " onSubmit={handleSubmit(onSubmit)}>
+  return (
+    <>
+      <Modal
+        modalId={"detailDialog"}
+        modalRef={dialogRef}
+        modalHeader={<h1 className=" title">Dettaglio</h1>}
+        modalBody={
+          <div className="container ">
+            <Form
+              onSubmit={onSubmit}
+              formInputs={populateForm ? populateForm : null}
+              payload={payload}
+              inputType={"text"}
+            />
+            {/* <form className="grid " onSubmit={handleSubmit(onSubmit)}>
                 <p className=" form-description">
                   Clicca su "Modifica" per modificare il prodotto.
                 </p>
@@ -300,10 +305,10 @@ export default function DetailProductModal() {
                     Annulla
                   </button>
                 </div>
-              </form>
-            </div>
-          }
-        ></Modal>
-      </>
-    );
+              </form> */}
+          </div>
+        }
+      ></Modal>
+    </>
+  );
 }

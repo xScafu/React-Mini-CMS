@@ -1,8 +1,10 @@
-import { Controller } from "react-hook-form";
+import { Controller, type Control } from "react-hook-form";
 import Select from "react-select";
 import { setAddCategoryIsOpen } from "../../../features/category/addCategorySlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { useAppSelector } from "../../../store/store";
+import type { Category, Product } from "../../../core/Types";
 
 export default function SelectForm({
   control,
@@ -14,20 +16,26 @@ export default function SelectForm({
   categoriesName,
   setReadOnly,
   setValue,
+}: {
+  control?: Control;
+  gridClass?: string;
+  inputName?: string;
+  inputId?: string;
+  labelContent?: string;
+  errorClass?: string;
+  categoriesName: string[];
+  setReadOnly?: boolean;
+  setValue?: Product["product"] | Category["category"];
 }) {
   const [toggleModify, setToggleModify] = useState(false);
 
-  const detailIsOpen = useSelector(
-    (state: boolean) => state.dialog.detailIsOpen,
-  );
+  const detailIsOpen = useAppSelector((state) => state.dialog.detailIsOpen);
   const dispatch = useDispatch();
 
-  console.log(setValue);
-  const setCategoryValue = setValue
-    ? { value: setValue.tagCategoria, label: setValue.nomeCategoria }
-    : null;
-
-  console.log(setCategoryValue);
+  const setCategoryValue =
+    setValue && "tagCategoria" in setValue && "nomeCategoria" in setValue
+      ? { value: setValue.tagCategoria, label: setValue.nomeCategoria }
+      : null;
 
   const addCategory = {
     value: "aggiungiCategoria",
@@ -48,7 +56,7 @@ export default function SelectForm({
       </label>
 
       <Controller
-        name={inputName}
+        name={inputName ?? ""}
         control={control}
         rules={{ required: true }}
         render={({ field, fieldState }) => (
@@ -61,7 +69,7 @@ export default function SelectForm({
             classNamePrefix={"react-select"}
             className={fieldState.error ? "error" : ""}
             onBlur={field.onBlur}
-            value={
+            defaultValue={
               (detailIsOpen && setReadOnly) || (detailIsOpen && !toggleModify)
                 ? options.find(
                     (option) => option.value === setCategoryValue?.value,
@@ -70,7 +78,10 @@ export default function SelectForm({
             }
             onChange={(selectedOption) => {
               field.onChange(selectedOption);
-              if (selectedOption.value === addCategory.value) {
+              if (
+                selectedOption &&
+                selectedOption.value === addCategory.value
+              ) {
                 dispatch(setAddCategoryIsOpen(true));
               } else {
                 dispatch(setAddCategoryIsOpen(false));

@@ -1,24 +1,64 @@
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 import {
   setAddCategoryIsOpen,
   setSubCategoryIsChecked,
 } from "../features/category/addCategorySlice";
 
-import { setAddIsOpen } from "../features/toggleDialogSlice";
+import { setAddIsOpen, setDetailIsOpen } from "../features/toggleDialogSlice";
 import SelectForm from "../pages/Inventario/components/SelectForm.component";
 import InputForm from "../pages/Inventario/components/InputForm.component";
 import { useEffect } from "react";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import { setToggleEditProduct } from "../features/product/editProductSlice";
+import type { Product, UnderCategory } from "../core/Types";
+
+import { useAppSelector } from "../store/store";
+
+import { useLabels } from "../hooks/useLabels";
+
+interface payload {
+  getCategoriesName: string[];
+  product: Product;
+}
+
+type formInputs = Array<[string | undefined]>;
 
 export default function Form({
   onSubmit,
   formInputs,
   payload,
   inputType,
-  state,
+}: {
+  onSubmit: SubmitHandler<any>;
+  formInputs: formInputs;
+  payload: payload;
+  inputType: string;
 }) {
+  const subCategoryIsChecked = useAppSelector(
+    (state) => state.addCategory.subCategoryIsChecked,
+  );
+  const addCategoryIsOpen = useAppSelector(
+    (state) => state.addCategory.addCategoryIsOpen,
+  );
+  const category = useAppSelector((state) => state.category.category);
+
+  const addIsOpen: boolean = useAppSelector((state) => state.dialog.addIsOpen);
+  const detailIsOpen: boolean = useAppSelector(
+    (state) => state.dialog.detailIsOpen,
+  );
+  const removeIsOpen: boolean = useAppSelector(
+    (state) => state.dialog.removeIsOpen,
+  );
+
+  const toggleEdit = useAppSelector(
+    (state) => state.editProduct.toggleEditProduct,
+  );
+
   const dispatch = useDispatch();
+  const { loading, labels } = useLabels();
 
   const {
     register,
@@ -28,17 +68,33 @@ export default function Form({
     formState: { errors, isSubmitSuccessful },
   } = useForm();
 
-  console.log(formInputs);
-
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset();
     }
   }, [isSubmitSuccessful, reset]);
 
-  //State = 1: dialog aggiungi aperta
+  useEffect(() => {
+    if (detailIsOpen) {
+      const subCategory = payload.product?.categoria.sottoCategorie.map(
+        (obj: UnderCategory) => Object.entries(obj),
+      );
 
-  if (state === 1) {
+      const category = Object.entries(
+        payload.product ? payload.product?.categoria : {},
+      );
+
+      const resetForm = [].concat(category, subCategory);
+
+      console.log(resetForm);
+      console.log(payload.product);
+      reset(payload.product);
+    }
+  }, [detailIsOpen, payload.product, reset]);
+
+  const underCategory = category.sottoCategorie[0];
+
+  if (addIsOpen && !loading) {
     return (
       <>
         <form className="grid" onSubmit={handleSubmit(onSubmit)}>
@@ -48,43 +104,104 @@ export default function Form({
           </p>
           <div className="row">
             {formInputs.map((p) => {
-              console.log(p);
-              if (p[0] == "categoria") {
-                console.log("categoria");
+              const key = p[0];
+              const label = labels[key];
+              if (key === "categoria") {
                 return (
                   <>
                     <SelectForm
                       control={control}
                       gridClass={`col-6`}
-                      errorClass={errors ? "error" : ""}
-                      inputId={p[0]}
-                      inputName={p[0]}
-                      labelContent={`${p[0]}${errors ? "*" : ""}`}
-                      categoriesName={payload}
+                      errorClass={errors[key] ? "error" : ""}
+                      inputId={key}
+                      inputName={key}
+                      labelContent={`${label}${errors[key] ? "*" : ""}`}
+                      categoriesName={payload.getCategoriesName}
                     />
                   </>
                 );
-              } else if (p[0] !== "id") {
-                console.log("input");
+              } else if (key !== "id") {
                 return (
                   <>
                     <InputForm
                       registerProp={{
-                        ...register(`${p[0]}`, { required: true }),
+                        ...register(`${key}`, { required: true }),
                       }}
                       gridClass="col-6"
-                      errorClass={errors ? "error" : ""}
-                      inputId={p[0]}
-                      labelContent={`${p[0]}${errors ? "*" : ""}`}
+                      errorClass={errors[key ? key : ""] ? "error" : ""}
+                      inputId={key}
+                      labelContent={`${label}${errors[key ? key : ""] ? "*" : ""}`}
                       inputType={inputType}
-                      inputName={p[0]}
+                      inputName={key}
                     />
                   </>
                 );
               }
             })}
           </div>
-          <div className="row"></div>
+          {/* Se addCategoryIsOpen === true, nuova sezione del form per aggiungere la categoria */}
+          {addCategoryIsOpen && (
+            <div className={`row ${!addCategoryIsOpen ? "hidden" : ""}`}>
+              <p className="col-11">Aggiungi la categoria</p>
+              {Object.keys(category ?? {}).map((c) => {
+                const label = labels[c];
+                if (
+                  c !== "sottoCategorie" &&
+                  c !== "idCategoria" &&
+                  c !== "tagCategoria"
+                ) {
+                  return (
+                    <InputForm
+                      registerProp={{ ...register(`${c}`) }}
+                      gridClass="col-6"
+                      errorClass={errors[c] ? "error" : ""}
+                      inputId={c}
+                      labelContent={`${label}${errors[c] ? "*" : ""}`}
+                      inputType={inputType}
+                      inputName={c}
+                    />
+                  );
+                }
+              })}
+            </div>
+          )}
+          <div className={`row `}>
+            <FormControlLabel
+              className="col-11"
+              labelPlacement="end"
+              control={
+                <Checkbox
+                  checked={subCategoryIsChecked}
+                  onChange={(event) => {
+                    const isChecked = event.target.checked;
+                    dispatch(setSubCategoryIsChecked(isChecked));
+                  }}
+                />
+              }
+              label="Questa categoria prevede una o più sotto-categorie?"
+            />
+          </div>
+          {subCategoryIsChecked && (
+            <div className={`row ${!subCategoryIsChecked ? "hidden" : ""}`}>
+              {Object.keys(underCategory).map((k) => {
+                const label = labels[k];
+                if (k !== "idSottoCategoria" && k !== "tagSottoCategoria") {
+                  return (
+                    <InputForm
+                      registerProp={{ ...register(`${k}`) }}
+                      gridClass="col-6"
+                      errorClass={errors[k] ? "error" : ""}
+                      inputId={k}
+                      labelContent={`${label}${errors[k] ? "*" : ""}`}
+                      inputType={inputType}
+                      inputName={k}
+                    />
+                  );
+                }
+              })}
+            </div>
+          )}
+
           <div className="row btns-container">
             <button type="submit" className="btn">
               Accetta
@@ -105,10 +222,134 @@ export default function Form({
         </form>
       </>
     );
-  } else if (state === 0) {
+  } else if (detailIsOpen && !loading) {
     return (
       <>
-        <p>ERRORE</p>
+        <form className="grid" onSubmit={handleSubmit(onSubmit)}>
+          <p className="form-description">
+            Clicca su "Modifica" per modificare il prodotto.
+          </p>
+          <div className="row">
+            {formInputs.map((p: any) => {
+              const key = p[0];
+              const value = p[1];
+              const label = labels[key];
+              if (key === "categoria") {
+                return (
+                  <>
+                    <SelectForm
+                      control={control}
+                      gridClass={`col-6`}
+                      errorClass={errors[key] ? "error" : ""}
+                      inputId={key}
+                      inputName={key}
+                      labelContent={`${label}${errors[key] ? "*" : ""}`}
+                      categoriesName={payload.getCategoriesName}
+                      setReadOnly={!toggleEdit}
+                      setValue={value}
+                    />
+                  </>
+                );
+              } else {
+                return (
+                  <>
+                    <InputForm
+                      registerProp={{
+                        ...register(`${key}`, { required: true }),
+                      }}
+                      gridClass="col-6"
+                      errorClass={errors[key] ? "error" : ""}
+                      inputId={key}
+                      labelContent={`${label}${errors[key] ? "*" : ""}`}
+                      inputType={inputType}
+                      inputName={key}
+                      setReadOnly={!toggleEdit}
+                    />
+                  </>
+                );
+              }
+            })}
+          </div>
+
+          <div className="row">
+            <h2 className="col-11">
+              Modifica la categoria e le sotto-categorie.
+            </h2>
+            {Object.keys(category ?? {}).map((k) => {
+              const key = k;
+              const label = labels[key];
+              {
+                return (
+                  <InputForm
+                    registerProp={{ ...register(`${key}`) }}
+                    gridClass="col-6"
+                    errorClass={errors[key] ? "error" : ""}
+                    inputId={key}
+                    labelContent={`${label}${errors[key] ? "*" : ""}`}
+                    inputType={inputType}
+                    inputName={key}
+                    setReadOnly={!toggleEdit}
+                  />
+                );
+              }
+            })}
+          </div>
+
+          <div className="row">
+            {Object.keys(underCategory).map((k) => {
+              const key = k;
+              const label = labels[key];
+              {
+                return (
+                  <InputForm
+                    registerProp={{ ...register(`${k}`) }}
+                    gridClass="col-6"
+                    errorClass={errors[key] ? "error" : ""}
+                    inputId={key}
+                    labelContent={`${label}${errors[key] ? "*" : ""}`}
+                    inputType={inputType}
+                    inputName={key}
+                    setReadOnly={!toggleEdit}
+                  />
+                );
+              }
+            })}
+          </div>
+
+          <div className="row btns-container js-btns-container">
+            {!toggleEdit ? (
+              <button
+                type="button"
+                className="btn "
+                onClick={() => {
+                  dispatch(setToggleEditProduct(true));
+                }}
+              >
+                Modifica
+              </button>
+            ) : (
+              <input type="submit" className="btn " value="Accetta"></input>
+            )}
+
+            <button
+              type="button"
+              className="btn js-btn-return"
+              onClick={() => {
+                dispatch(setDetailIsOpen(false));
+                dispatch(setToggleEditProduct(false));
+                reset();
+              }}
+            >
+              Annulla
+            </button>
+          </div>
+        </form>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <p>CARICAMENTO</p>
       </>
     );
   }

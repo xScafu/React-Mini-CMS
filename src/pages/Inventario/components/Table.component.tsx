@@ -9,6 +9,7 @@ import {
 } from "../../../features/toggleDialogSlice";
 import { setProduct } from "../../../features/product/productSlice";
 import { setRefreshComponent } from "../../../features/refreshComponentSlice";
+import { setCategory } from "../../../features/category/categorySlice";
 
 export default function Table() {
   const { filteredProducts, loading } = useProducts();
@@ -39,6 +40,8 @@ export default function Table() {
                         dispatch(setRemoveIsOpen(false));
                         dispatch(setDetailIsOpen(true));
                         dispatch(setProduct(product));
+                        dispatch(setCategory(product.categoria));
+                        console.log(product);
                       }}
                       title="Dettaglio prodotto"
                     >

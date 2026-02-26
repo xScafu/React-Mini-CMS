@@ -9,6 +9,7 @@
         "tagCategoria": "alimentare",
         "sottoCategorie": [
           {
+            "idSottoCategoria": "4da6",
             "nomeSottoCategoria": "Carne bovina",
             "tagSottoCategoria": "carne-bovina"
           }
@@ -29,6 +30,7 @@
         "tagCategoria": "cancelleria",
         "sottoCategorie": [
           {
+            "idSottoCategoria": "f498",
             "nomeSottoCategoria": "Cartaceo",
             "tagSottoCategoria": "cartaceo"
           }
@@ -49,6 +51,7 @@
         "tagCategoria": "elettronica",
         "sottoCategorie": [
           {
+            "idSottoCategoria": "fnbs",
             "nomeSottoCategoria": "PC portatili",
             "tagSottoCategoria": "pc-portatili"
           }
@@ -68,6 +71,7 @@
       "tagCategoria": "alimentare",
       "sottoCategorie": [
         {
+          "idSottoCategoria": "f498",
           "nomeSottoCategoria": "Carne bovina",
           "tagSottoCategoria": "carne-bovina"
         }
@@ -79,6 +83,7 @@
       "tagCategoria": "cancelleria",
       "sottoCategorie": [
         {
+          "idSottoCategoria": "f498",
           "nomeSottoCategoria": "Cartaceo",
           "tagSottoCategoria": "cartaceo"
         }
@@ -90,8 +95,20 @@
       "tagCategoria": "elettronica",
       "sottoCategorie": [
         {
+          "idSottoCategoria": "fnbs",
           "nomeSottoCategoria": "PC portatili",
           "tagSottoCategoria": "pc-portatili"
+        }
+      ]
+    },
+    {
+      "id": "0283",
+      "nomeCategoria": "Alimentare",
+      "tagCategoria": "alimentare",
+      "sottoCategorie": [
+        {
+          "nomeSottoCategoria": "Pesce",
+          "tagSottoCategoria": "pesce"
         }
       ]
     }
@@ -162,5 +179,22 @@
         }
       ]
     }
-  ]
+  ],
+  "labels": {
+    "id": "ID prodotto",
+    "nome": "Nome",
+    "categoria": "Categoria",
+    "costo": "Costo",
+    "prezzo": "Prezzo",
+    "quantita": "Quantità",
+    "dataAcquisto": "Data di acquisto",
+    "dataSpeciale": "Data speciale",
+    "idCategoria": "ID categoria",
+    "nomeCategoria": "Nome categoria",
+    "tagCategoria": "Tag categoria",
+    "sottoCategorie": "Sotto categorie",
+    "nomeSottoCategoria": "Nome sotto categoria",
+    "tagSottoCategoria": "Tag sotto categoria",
+    "idSottoCategoria": "ID sotto categoria"
+  }
 }

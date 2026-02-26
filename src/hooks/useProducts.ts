@@ -20,7 +20,7 @@ export function useProducts() {
         setProducts(data as Product[]);
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [loading]);
 
   // Per evitare ricalcoli inutili su grandi array
   const filteredProducts = useMemo(() => {

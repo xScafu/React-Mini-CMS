@@ -1,3 +1,5 @@
+import type { UseFormRegisterReturn } from "react-hook-form";
+
 export default function InputForm({
   gridClass,
   inputName,
@@ -8,6 +10,16 @@ export default function InputForm({
   registerProp,
   setReadOnly,
   errorMessage,
+}: {
+  gridClass?: string;
+  inputName?: string;
+  inputType?: string;
+  inputId?: string;
+  labelContent?: string;
+  errorClass?: string;
+  registerProp?: UseFormRegisterReturn;
+  setReadOnly?: boolean;
+  errorMessage?: string;
 }) {
   return (
     <>

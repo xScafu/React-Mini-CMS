@@ -10,7 +10,7 @@ export function useCategories() {
     getCategories()
       .then((data) => setCategory(data as Category[]))
       .finally(() => setLoading(false));
-  }, []);
+  }, [loading]);
 
   return { categories, loading };
 }

@@ -1,39 +1,29 @@
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../components/Modal";
-import InputForm from "./InputForm.component";
 import { useEffect, useRef } from "react";
-import { useForm } from "react-hook-form";
 import { setAddIsOpen } from "../../../features/toggleDialogSlice";
 import { useCategories } from "../hook/useCategories";
-import SelectForm from "./SelectForm.component";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import {
   setAddCategoryIsOpen,
   setCategorySubmit,
-  setSubCategoryIsChecked,
 } from "../../../features/category/addCategorySlice";
-import {
-  getProducts,
-  postCategories,
-  postProduct,
-} from "../../../core/ServerService";
+import { postCategories, postProduct } from "../../../core/ServerService";
 import { setRefreshComponent } from "../../../features/refreshComponentSlice";
-import type { Category, Product } from "../../../core/Types";
+import { type Category, type Product } from "../../../core/Types";
 import Form from "../../../components/Form";
+import { useAppSelector } from "../../../store/store";
 
 export default function AddProductModal() {
-  const product = useSelector((state) => state.product.product);
+  const product = useAppSelector((state) => state.product.product);
 
-  const populateForm = Object.entries(product);
+  const populateForm: [string, unknown][] = product
+    ? Object.entries(product)
+    : [];
 
   const dialogRef = useRef(null);
-  const addIsOpen = useSelector((state: boolean) => state.dialog.addIsOpen);
-  const addCategoryIsOpen = useSelector(
-    (state: boolean) => state.addCategory.addCategoryIsOpen,
-  );
-  const subCategoryIsChecked: boolean = useSelector(
-    (state: boolean) => state.addCategory.subCategoryIsChecked,
+  const addIsOpen = useAppSelector((state) => state.dialog.addIsOpen);
+  const addCategoryIsOpen = useAppSelector(
+    (state) => state.addCategory.addCategoryIsOpen,
   );
 
   const dispatch = useDispatch();
@@ -43,49 +33,47 @@ export default function AddProductModal() {
     (categoryName) => categoryName.nomeCategoria,
   );
 
+  const payload = {
+    getCategoriesName: getCategoriesName,
+  };
+
   const onSubmit = (data: any) => {
-    if (addCategoryIsOpen) {
-      const product: Product = {
-        nome: data.nome,
-        categoria: {
-          nomeCategoria: data.nomeCategoria,
-          tagCategoria: data.tagCategoria,
-          sottoCategorie: [
-            {
-              nomeSottoCategoria: data.nomeSottoCategoria,
-              tagSottoCategoria: data.tagSottoCategoria,
-            },
-          ],
+    console.log(data);
+
+    const category: Category = {
+      nomeCategoria: data.categoria.label,
+      tagCategoria: data.categoria.value,
+      sottoCategorie: [
+        {
+          nomeSottoCategoria: data.nomeSottoCategoria,
+          tagSottoCategoria: data.nomeSottoCategoria.toLowerCase(),
         },
-        costo: data.costo,
-        prezzo: data.prezzo,
-        quantita: data.quantita,
-        dataAcquisto: data.dataAcquisto,
-        dataSpeciale: data.dataSpeciale,
-      };
-      const category: Category = {
-        nomeCategoria: data.nomeCategoria,
-        tagCategoria: data.tagCategoria,
-        sottoCategorie: [
-          {
-            nomeSottoCategoria: data.nomeSottoCategoria,
-            tagSottoCategoria: data.tagSottoCategoria,
-          },
-        ],
-      };
-      console.log(category);
-      console.log(product);
+      ],
+    };
+    const product: Product = {
+      nome: data.nome,
+      categoria: category,
+      costo: data.costo,
+      prezzo: data.prezzo,
+      quantita: data.quantita,
+      dataAcquisto: data.dataAcquisto,
+      dataSpeciale: data.dataSpeciale,
+    };
+    console.log(category);
+    console.log(product);
+
+    if (addCategoryIsOpen) {
       postCategories(category);
-      dispatch(setAddCategoryIsOpen(false));
-      dispatch(setCategorySubmit(false));
-      postProduct(product);
-      dispatch(setAddIsOpen(false));
-      dispatch(setRefreshComponent(true));
     } else {
-      postProduct(data);
-      dispatch(setAddIsOpen(false));
-      dispatch(setRefreshComponent(true));
+      // In questo else viene solo modificata la categoria con una chiamata put
+      // postSubCategory(category.sottoCategorie);
     }
+
+    dispatch(setAddCategoryIsOpen(false));
+    dispatch(setCategorySubmit(false));
+    postProduct(product);
+    dispatch(setAddIsOpen(false));
+    dispatch(setRefreshComponent(true));
   };
 
   useEffect(() => {
@@ -106,13 +94,12 @@ export default function AddProductModal() {
           <h1 className="js-modal-add-header-title title">Aggiungi</h1>
         }
         modalBody={
-          <div className="container js-modal-add-content">
+          <div className="container">
             <Form
               onSubmit={onSubmit}
               formInputs={populateForm ? populateForm : null}
-              payload={getCategoriesName}
+              payload={payload}
               inputType={"text"}
-              state={addIsOpen ? 1 : 0}
             />
             {/* <form className="grid js-form" onSubmit={handleSubmit(onSubmit)}>
               <p className="js-form-description form-description">

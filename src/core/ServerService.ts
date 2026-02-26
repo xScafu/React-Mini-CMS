@@ -107,3 +107,13 @@ export async function getBilancio() {
     console.log(error);
   }
 }
+
+export async function getLabels() {
+  try {
+    const response = await fetch(`${API_URL}/labels`);
+    const data: string[] = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}

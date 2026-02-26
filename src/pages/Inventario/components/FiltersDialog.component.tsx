@@ -11,8 +11,6 @@ export default function FiltersDialog() {
     (state) => state.sorting,
   );
 
-  console.log(categories);
-
   if (!loading) {
     return (
       <>

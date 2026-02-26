@@ -5,22 +5,25 @@ export interface UnderCategory {
 }
 
 export interface Category {
-  idCategoria?: string;
-  nomeCategoria: string;
-  tagCategoria: string;
-  sottoCategorie?: UnderCategory[];
+  category?: {
+    idCategoria?: string;
+    nomeCategoria: string;
+    tagCategoria: string;
+    sottoCategorie?: UnderCategory[];
+  };
 }
 export interface Product {
-  id?: string;
-  categoria: Category;
-  nome: string;
-  prezzo: string;
-  quantita: string;
-  costo: string;
-  dataAcquisto: string;
-  dataSpeciale?: string;
+  product?: {
+    id?: string;
+    categoria: Category;
+    nome: string;
+    prezzo: string;
+    quantita: string;
+    costo: string;
+    dataAcquisto: string;
+    dataSpeciale?: string;
+  };
 }
-
 export interface Card {
   key?: number;
   id: string;

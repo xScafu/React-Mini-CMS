@@ -1,9 +1,14 @@
-import AppLayout from "./AppLayout";
+import { lazy, Suspense } from "react";
+import Loading from "../components/Loading";
 
 function App() {
+  const AppLayout = lazy(() => import("./AppLayout"));
+
   return (
     <>
-      <AppLayout />
+      <Suspense fallback={<Loading />}>
+        <AppLayout />
+      </Suspense>
     </>
   );
 }
