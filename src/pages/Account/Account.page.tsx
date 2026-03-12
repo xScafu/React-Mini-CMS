@@ -1,7 +1,12 @@
 import AccountForm from "./components/AccountForm.component";
+import { useUsers } from "./hook/useUsers";
 
 export default function Account() {
-  const nomeAccount = "Ermenegildo";
+  const { users, loading } = useUsers();
+
+  const currentUser = users.find((user) => user.id === "gf18");
+
+  const nomeAccount = currentUser?.username ?? "Sconosciuto";
 
   return (
     <>
@@ -10,7 +15,7 @@ export default function Account() {
           <h1 className="section-title">{`Benvenuto, ${nomeAccount}`}</h1>
         </div>
         <div className="container">
-          <AccountForm />
+          {currentUser && <AccountForm user={currentUser} />}
         </div>
       </section>
     </>

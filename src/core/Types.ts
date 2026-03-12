@@ -38,3 +38,28 @@ export interface CardBilancio {
   moneySymbol: string;
   details: [{ id: string; label: string; value: number; moneySymbol: string }];
 }
+
+export interface User {
+  address: {
+    geolocation: {
+      lat: string;
+      long: string;
+    };
+    city: string;
+    province: string;
+    street: string;
+    number: number;
+    zipcode: string;
+  };
+  id: string;
+  email: string;
+  username: string;
+  password: string;
+  name: {
+    firstname: string;
+    lastname: string;
+  };
+  gender: string;
+  phone: string;
+  __v: number;
+}

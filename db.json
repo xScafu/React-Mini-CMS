@@ -180,6 +180,32 @@
       ]
     }
   ],
+  "utenti": [
+    {
+      "address": {
+        "geolocation": {
+          "lat": "-37.3159",
+          "long": "81.1496"
+        },
+        "city": "Roma",
+        "province": "Roma",
+        "street": "Via Er Capitano",
+        "number": 50,
+        "zipcode": "10000"
+      },
+      "id": "gf18",
+      "email": "gildo@gmail.com",
+      "username": "ermehd",
+      "password": "m38rmF$",
+      "name": {
+        "firstname": "Ermenegildo",
+        "lastname": "Franco"
+      },
+      "gender": "Maschio",
+      "phone": "0123-456789",
+      "__v": 0
+    }
+  ],
   "labels": {
     "id": "ID prodotto",
     "nome": "Nome",

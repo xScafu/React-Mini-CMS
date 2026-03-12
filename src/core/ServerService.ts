@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import type { Card, CardBilancio, Product, Category } from "./Types";
+import type { Card, CardBilancio, Product, Category, User } from "./Types";
 
 const API_URL = "http://localhost:3000";
 
@@ -24,7 +24,7 @@ export async function postProduct(product: Product) {
         pending: "Caricamento.",
         success: "Prodotto caricato con successo.",
         error: "Non è stato possibile caricare il prodotto.",
-      },
+      }
     )
     .then(() => getProducts())
     .finally(() => getCategories());
@@ -40,7 +40,7 @@ export async function removeProduct(product: Product) {
         pending: "Caricamento.",
         success: "Prodotto rimosso con successo.",
         error: "Non è stato possibile rimuovere il prodotto.",
-      },
+      }
     )
     .then(() => getProducts())
     .finally(() => getCategories());
@@ -56,7 +56,7 @@ export async function modifyProduct(product: Product) {
       pending: "Caricamento.",
       success: "Prodotto modificato con successo.",
       error: "Non è stato possibile modificare il prodotto.",
-    },
+    }
   );
 }
 
@@ -82,7 +82,7 @@ export async function postCategories(categories: Category) {
         pending: "Caricamento.",
         success: "Categorie caricate con successo.",
         error: "Non è stato possibile caricare le catogorie dei prodotti.",
-      },
+      }
     )
     .then(() => getCategories());
 }
@@ -101,7 +101,6 @@ export async function getBilancio() {
   try {
     const response = await fetch(`${API_URL}/bilancio`);
     const data: CardBilancio[] = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -115,5 +114,15 @@ export async function getLabels() {
     return data;
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function getUsers(): Promise<User[]> {
+  try {
+    const response = await fetch(`${API_URL}/utenti`);
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+    return [];
   }
 }
