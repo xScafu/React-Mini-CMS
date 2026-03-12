@@ -1,7 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { Category } from "../../core/Types";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { ProductCategory, UnderCategory } from "../../core/Types";
 
-const initialState: Category = {
+// Stato per la categoria selezionata (form editing)
+interface CategoryState {
+  category: ProductCategory;
+}
+
+const initialState: CategoryState = {
   category: {
     idCategoria: "",
     nomeCategoria: "",
@@ -12,7 +17,7 @@ const initialState: Category = {
         nomeSottoCategoria: "",
         tagSottoCategoria: "",
       },
-    ],
+    ] as UnderCategory[],
   },
 };
 
@@ -20,11 +25,24 @@ const categorySlice = createSlice({
   name: "category",
   initialState,
   reducers: {
-    setCategory: (state, action) => {
+    setCategory: (state, action: PayloadAction<ProductCategory>) => {
       state.category = action.payload;
+    },
+    resetCategory: (state) => {
+      state.category = initialState.category;
+    },
+    updateCategoryField: (
+      state,
+      action: PayloadAction<{ field: keyof ProductCategory; value: string }>
+    ) => {
+      const { field, value } = action.payload;
+      if (field !== "sottoCategorie") {
+        (state.category[field] as string) = value;
+      }
     },
   },
 });
 
-export const { setCategory } = categorySlice.actions;
+export const { setCategory, resetCategory, updateCategoryField } =
+  categorySlice.actions;
 export default categorySlice.reducer;

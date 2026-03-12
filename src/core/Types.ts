@@ -1,56 +1,70 @@
+// Sotto-categoria
 export interface UnderCategory {
   idSottoCategoria?: string;
   nomeSottoCategoria: string;
   tagSottoCategoria: string;
 }
 
+// Categoria (struttura flat per l'endpoint /categorie)
 export interface Category {
-  category?: {
-    idCategoria?: string;
-    nomeCategoria: string;
-    tagCategoria: string;
-    sottoCategorie?: UnderCategory[];
-  };
-}
-export interface Product {
-  product?: {
-    id?: string;
-    categoria: Category;
-    nome: string;
-    prezzo: string;
-    quantita: string;
-    costo: string;
-    dataAcquisto: string;
-    dataSpeciale?: string;
-  };
-}
-export interface Card {
-  key?: number;
-  id: string;
-  label: string;
-  value: string;
-  icon: string;
+  id?: string;
+  nomeCategoria: string;
+  tagCategoria: string;
+  sottoCategorie?: UnderCategory[];
 }
 
+// Categoria embedded nel prodotto
+export interface ProductCategory {
+  idCategoria?: string;
+  nomeCategoria: string;
+  tagCategoria: string;
+  sottoCategorie?: UnderCategory[];
+}
+
+// Prodotto (struttura flat come nel db.json)
+export interface Product {
+  id?: string;
+  nome: string;
+  categoria: ProductCategory;
+  costo: string;
+  prezzo: string;
+  quantita: string;
+  dataAcquisto: string;
+  dataSpeciale?: string;
+}
+
+// Card Dashboard
+export interface Card {
+  id: string;
+  label: string;
+  value: number;
+  icon: string;
+  moneySymbol?: string;
+}
+
+// Dettaglio Bilancio
+export interface BilancioDetail {
+  id: string;
+  label: string;
+  value: number;
+  moneySymbol: string;
+}
+
+// Card Bilancio
 export interface CardBilancio {
   id: string;
   value: number;
   moneySymbol: string;
-  details: [{ id: string; label: string; value: number; moneySymbol: string }];
+  details: BilancioDetail[];
 }
 
+// Labels per le colonne della tabella
+export interface Labels {
+  [key: string]: string;
+}
+
+// Utente
 export interface User {
-  address: {
-    geolocation: {
-      lat: string;
-      long: string;
-    };
-    city: string;
-    province: string;
-    street: string;
-    number: number;
-    zipcode: string;
-  };
   id: string;
   email: string;
   username: string;
@@ -61,5 +75,23 @@ export interface User {
   };
   gender: string;
   phone: string;
-  __v: number;
+  address: {
+    city: string;
+    province: string;
+    street: string;
+    number: number;
+    zipcode: string;
+    geolocation: {
+      lat: string;
+      long: string;
+    };
+  };
+  __v?: number;
+}
+
+// Risposta API generica per gestione errori
+export interface ApiResponse<T> {
+  data: T | null;
+  error: string | null;
+  success: boolean;
 }

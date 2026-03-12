@@ -1,7 +1,12 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { Category, Product, UnderCategory } from "../../core/Types";
+import type { Product, ProductCategory, UnderCategory } from "../../core/Types";
 
-const initialState: Product = {
+// Stato iniziale per un singolo prodotto (form editing)
+interface ProductState {
+  product: Product;
+}
+
+const initialState: ProductState = {
   product: {
     id: "",
     nome: "",
@@ -16,7 +21,7 @@ const initialState: Product = {
           tagSottoCategoria: "",
         },
       ] as UnderCategory[],
-    } as Category,
+    } as ProductCategory,
     costo: "",
     prezzo: "",
     quantita: "",
@@ -29,11 +34,24 @@ const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    setProduct: (state, action: PayloadAction<Product["product"]>) => {
+    setProduct: (state, action: PayloadAction<Product>) => {
       state.product = action.payload;
+    },
+    resetProduct: (state) => {
+      state.product = initialState.product;
+    },
+    updateProductField: (
+      state,
+      action: PayloadAction<{ field: keyof Product; value: string }>
+    ) => {
+      const { field, value } = action.payload;
+      if (field !== "categoria") {
+        (state.product[field] as string) = value;
+      }
     },
   },
 });
 
-export const { setProduct } = productSlice.actions;
+export const { setProduct, resetProduct, updateProductField } =
+  productSlice.actions;
 export default productSlice.reducer;
