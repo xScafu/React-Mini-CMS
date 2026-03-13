@@ -1,23 +1,24 @@
 import { toast } from "react-toastify";
 import type { Card, CardBilancio, Product, Category, User } from "./Types";
 
-const API_URL = "http://localhost:3000";
-
-// export async function getProducts() {
-//   try {
-//     const response = await fetch(`/api/products`);
-//     const data: Product[] = await response.json();
-//     return data;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+export async function getProducts() {
+  try {
+    const response = await fetch(`/api/products`);
+    const data: Product[] = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export async function postProduct(product: Product) {
   toast
     .promise(
-      fetch(`${API_URL}/prodotti`, {
+      fetch(`/api/products`, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(product),
       }),
       {
@@ -33,7 +34,7 @@ export async function postProduct(product: Product) {
 export async function removeProduct(product: Product) {
   toast
     .promise(
-      fetch(`${API_URL}/prodotti/${product.id}`, {
+      fetch(`/api/products/${product.id}`, {
         method: "DELETE",
       }),
       {
@@ -48,8 +49,11 @@ export async function removeProduct(product: Product) {
 
 export async function modifyProduct(product: Product) {
   toast.promise(
-    fetch(`${API_URL}/prodotti/${product.id}`, {
+    fetch(`/api/products/${product.id}`, {
       method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(product),
     }),
     {
@@ -62,10 +66,9 @@ export async function modifyProduct(product: Product) {
 
 export async function getCategories() {
   try {
-    const response = await fetch(`${API_URL}/prodotti`);
-    const data: Product[] = await response.json();
-    const categories = [...new Set(data.map((product) => product.categoria))];
-    return categories;
+    const response = await fetch(`/api/categories`);
+    const data: Category[] = await response.json();
+    return data;
   } catch (error) {
     console.log(error);
   }
@@ -74,14 +77,17 @@ export async function getCategories() {
 export async function postCategories(categories: Category) {
   toast
     .promise(
-      fetch(`${API_URL}/categorie`, {
+      fetch(`/api/categories`, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(categories),
       }),
       {
         pending: "Caricamento.",
         success: "Categorie caricate con successo.",
-        error: "Non è stato possibile caricare le catogorie dei prodotti.",
+        error: "Non è stato possibile caricare le categorie.",
       }
     )
     .then(() => getCategories());
@@ -89,7 +95,7 @@ export async function postCategories(categories: Category) {
 
 export async function getCards() {
   try {
-    const response = await fetch(`${API_URL}/cards`);
+    const response = await fetch(`/api/cards`);
     const data: Card[] = await response.json();
     return data;
   } catch (error) {
@@ -99,7 +105,7 @@ export async function getCards() {
 
 export async function getBilancio() {
   try {
-    const response = await fetch(`${API_URL}/bilancio`);
+    const response = await fetch(`/api/balance`);
     const data: CardBilancio[] = await response.json();
     return data;
   } catch (error) {
@@ -109,8 +115,8 @@ export async function getBilancio() {
 
 export async function getLabels() {
   try {
-    const response = await fetch(`${API_URL}/labels`);
-    const data: string[] = await response.json();
+    const response = await fetch(`/api/labels`);
+    const data = await response.json();
     return data;
   } catch (error) {
     console.log(error);
@@ -119,7 +125,7 @@ export async function getLabels() {
 
 export async function getUsers(): Promise<User[]> {
   try {
-    const response = await fetch(`${API_URL}/utenti`);
+    const response = await fetch(`/api/users`);
     return await response.json();
   } catch (error) {
     console.log(error);

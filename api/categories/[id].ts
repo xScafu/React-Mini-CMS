@@ -5,11 +5,11 @@ export default async function handler(req, res) {
   const { id } = req.query;
 
   const db = await getDb();
-  const collection = db.collection("products");
+  const collection = db.collection("categories");
 
   if (req.method === "GET") {
-    const product = await collection.findOne({ _id: new ObjectId(id) });
-    return res.status(200).json(product);
+    const item = await collection.findOne({ _id: new ObjectId(id) });
+    return res.status(200).json(item);
   }
 
   if (req.method === "PUT") {
@@ -25,6 +25,4 @@ export default async function handler(req, res) {
     await collection.deleteOne({ _id: new ObjectId(id) });
     return res.status(200).json({ success: true });
   }
-
-  res.status(405).json({ message: "Method not allowed" });
 }
