@@ -28,3 +28,8 @@ dist-ssr
 
 #Ambient variables
 .env
+
+# Evita di caricare file compilati accidentalmente
+api/**/*.js
+lib/**/*.js
+*.tsbuildinfo
