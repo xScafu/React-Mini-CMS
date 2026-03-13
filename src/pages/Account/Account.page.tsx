@@ -4,7 +4,9 @@ import { useUsers } from "./hook/useUsers";
 export default function Account() {
   const { users, loading } = useUsers();
 
-  const currentUser = users.find((user) => user._id === "gf18");
+  const currentUser = users.find(
+    (user) => user._id === "69b29662ac5c0d43d44bd263"
+  );
 
   const nomeAccount = currentUser?.username ?? "Sconosciuto";
 
