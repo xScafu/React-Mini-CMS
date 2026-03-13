@@ -1,0 +1,1 @@
+{"root":["./api/budget/index.ts","./api/cards/[id].ts","./api/cards/index.ts","./api/categories/[id].ts","./api/categories/index.ts","./api/labels/index.ts","./api/products/[id].ts","./api/products/index.ts","./api/users/[id].ts","./api/users/index.ts","./lib/mongodb.ts"],"errors":true,"version":"5.9.3"}
