@@ -1,4 +1,4 @@
-import { getDb } from "../../lib/mongodb";
+import { getDb } from "../../lib/mongodb.ts";
 import { ObjectId } from "mongodb";
 
 export default async function handler(req, res) {
