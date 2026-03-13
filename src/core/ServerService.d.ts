@@ -1,0 +1,11 @@
+import type { Card, CardBilancio, Product, Category, User } from "./Types";
+export declare function getProducts(): Promise<Product[] | undefined>;
+export declare function postProduct(product: Product): Promise<void>;
+export declare function removeProduct(product: Product): Promise<void>;
+export declare function modifyProduct(product: Product): Promise<void>;
+export declare function getCategories(): Promise<Category[] | undefined>;
+export declare function postCategories(categories: Category): Promise<void>;
+export declare function getCards(): Promise<Card[] | undefined>;
+export declare function getBilancio(): Promise<CardBilancio[] | undefined>;
+export declare function getLabels(): Promise<any>;
+export declare function getUsers(): Promise<User[]>;
