@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { getProducts } from "../api/products";
+import { getProducts } from "../core/ServerService";
 
 import type { Product } from "../core/Types";
 import { useSelector } from "react-redux";

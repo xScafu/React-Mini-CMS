@@ -1,14 +1,18 @@
 import { MongoClient } from "mongodb";
 
-const uri = process.env.MONGODB_URI;
+const uri = process.env.MONGODB_URI as string;
 
-if (!uri) {
-  throw new Error("MONGODB_URI non definita");
+let client: MongoClient;
+let clientPromise: Promise<MongoClient>;
+
+if (!(global as any)._mongoClientPromise) {
+  client = new MongoClient(uri);
+  (global as any)._mongoClientPromise = client.connect();
 }
 
-const client = new MongoClient(uri);
+clientPromise = (global as any)._mongoClientPromise;
 
 export async function getDb() {
-  await client.connect();
-  return client.db;
+  const client = await clientPromise;
+  return client.db();
 }

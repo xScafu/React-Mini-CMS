@@ -9,7 +9,7 @@ export default function CardBilancio() {
     "0" + (date.getMonth() + 1)
   }-${date.getFullYear()}`;
 
-  if (!loading) {
+  if (!loading && balance) {
     const details = balance[0].details;
     const balanceValue = balance[0].value;
     return (

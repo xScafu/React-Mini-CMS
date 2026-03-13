@@ -105,7 +105,7 @@ export async function getCards() {
 
 export async function getBilancio() {
   try {
-    const response = await fetch(`/api/balance`);
+    const response = await fetch(`/api/budget`);
     const data: CardBilancio[] = await response.json();
     return data;
   } catch (error) {
