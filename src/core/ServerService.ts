@@ -3,15 +3,15 @@ import type { Card, CardBilancio, Product, Category, User } from "./Types";
 
 const API_URL = "http://localhost:3000";
 
-export async function getProducts() {
-  try {
-    const response = await fetch(`${API_URL}/prodotti`);
-    const data: Product[] = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-}
+// export async function getProducts() {
+//   try {
+//     const response = await fetch(`/api/products`);
+//     const data: Product[] = await response.json();
+//     return data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
 export async function postProduct(product: Product) {
   toast
