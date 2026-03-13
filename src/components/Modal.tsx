@@ -1,3 +1,15 @@
+import type { ReactElement, ReactEventHandler } from "react";
+
+interface Modal {
+  modalHeader: ReactElement;
+  modalBody: ReactElement;
+  modalFooter: ReactElement;
+  modalId: string;
+  cssClass: string;
+  modalRef: null;
+  modalOnClose: ReactEventHandler;
+}
+
 export default function Modal({
   modalHeader,
   modalBody,
@@ -6,7 +18,7 @@ export default function Modal({
   cssClass,
   modalRef,
   modalOnClose,
-}) {
+}: Modal) {
   return (
     <>
       <dialog

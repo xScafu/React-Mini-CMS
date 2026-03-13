@@ -3,12 +3,13 @@ import { useCategories } from "../hook/useCategories";
 import { setFilterArray } from "../../../features/filters/filterSlice";
 import { setToggleSorting } from "../../../features/filters/sortingSlice";
 import SearchFilter from "./SearchFilter.component";
+import type { RootState } from "../../../store/store";
 
 export default function FiltersDialog() {
   const { categories, loading } = useCategories();
   const dispatch = useDispatch();
   const { sortingAscendance, sortingDescendance } = useSelector(
-    (state) => state.sorting,
+    (state: RootState) => state.sorting
   );
 
   if (!loading) {
@@ -20,7 +21,11 @@ export default function FiltersDialog() {
             {categories.map((category) => (
               <li className="js-filter filter">
                 <input
-                  id={category.id ? category.id.toLowerCase() : ""}
+                  id={
+                    category.idCategoria
+                      ? category.idCategoria.toLowerCase()
+                      : ""
+                  }
                   className="js-filter-checkbox"
                   type="checkbox"
                   name={
@@ -33,7 +38,7 @@ export default function FiltersDialog() {
                       setFilterArray({
                         name: e.target.name,
                         checked: e.target.checked,
-                      }),
+                      })
                     );
                   }}
                 ></input>

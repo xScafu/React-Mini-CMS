@@ -15,7 +15,7 @@ export default function Dashboard() {
             {cards.map((card) => (
               <Card
                 key={card.key}
-                cardID={card.id}
+                cardID={card._id}
                 cardLabel={card.label}
                 cardValue={card.value}
                 cardIcon={card.icon}

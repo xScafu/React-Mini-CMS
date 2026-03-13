@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { getProducts } from "../core/ServerService";
+import type { RootState } from "../store/store";
 
 import type { Product } from "../core/Types";
 import { useSelector } from "react-redux";
@@ -8,11 +9,13 @@ export function useProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const filters = useSelector((state) => state.filter.filterArray as string[]);
-  const { sortingAscendance, sortingDescendance } = useSelector(
-    (state) => state.sorting
+  const filters = useSelector(
+    (state: RootState) => state.filter.filterArray as string[]
   );
-  const search = useSelector((state) => state.search.searchName);
+  const { sortingAscendance, sortingDescendance } = useSelector(
+    (state: RootState) => state.sorting
+  );
+  const search = useSelector((state: RootState) => state.search.searchName);
 
   useEffect(() => {
     getProducts()
@@ -40,7 +43,7 @@ export function useProducts() {
     } else if (sortingDescendance) {
       result.sort((a, b) => a.nome.localeCompare(b.nome));
     } else {
-      result.sort((a, b) => a.id.localeCompare(b.id));
+      result.sort((a, b) => a._id.localeCompare(b._id));
     }
 
     // SEARCH

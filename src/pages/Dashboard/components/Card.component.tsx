@@ -1,7 +1,17 @@
-import { DynamicIcon } from "lucide-react/dynamic";
+import { DynamicIcon, type IconName } from "lucide-react/dynamic";
 import type { Card } from "../../../core/Types";
 
-export default function Card({ cardID, cardLabel, cardValue, cardIcon }) {
+export default function Card({
+  cardID,
+  cardLabel,
+  cardValue,
+  cardIcon,
+}: {
+  cardID: string;
+  cardLabel: string;
+  cardValue: string | number;
+  cardIcon: IconName;
+}) {
   if (cardID) {
     return (
       <>

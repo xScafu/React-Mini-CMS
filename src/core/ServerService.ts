@@ -34,7 +34,7 @@ export async function postProduct(product: Product) {
 export async function removeProduct(product: Product) {
   toast
     .promise(
-      fetch(`/api/products/${product.id}`, {
+      fetch(`/api/products/${product._id}`, {
         method: "DELETE",
       }),
       {
@@ -49,7 +49,7 @@ export async function removeProduct(product: Product) {
 
 export async function modifyProduct(product: Product) {
   toast.promise(
-    fetch(`/api/products/${product.id}`, {
+    fetch(`/api/products/${product._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

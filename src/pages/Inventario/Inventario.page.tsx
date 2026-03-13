@@ -12,10 +12,13 @@ import AddProductModal from "./components/AddProductModal.component";
 import RemoveProductModal from "./components/RemoveProductModal.component";
 import DetailProductModal from "./components/DetailProductModal.component";
 import { setRefreshComponent } from "../../features/refreshComponentSlice";
+import type { RootState } from "../../store/store";
 
 export default function Inventario() {
   const dispatch = useDispatch();
-  const toggleRefresh = useSelector((state) => state.refresh.refreshComponent);
+  const toggleRefresh = useSelector(
+    (state: RootState) => state.refresh.refreshComponent
+  );
   let newKey = 0;
   const date = new Date();
 

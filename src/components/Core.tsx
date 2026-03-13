@@ -1,4 +1,4 @@
-export default function Core({ children }) {
+export default function Core({ children }: { children: React.ReactNode }) {
   return (
     <>
       <main className="core">

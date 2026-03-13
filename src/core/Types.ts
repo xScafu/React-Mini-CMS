@@ -1,3 +1,5 @@
+import type { IconName } from "lucide-react/dynamic";
+
 export interface UnderCategory {
   idSottoCategoria?: string;
   nomeSottoCategoria: string;
@@ -5,35 +7,31 @@ export interface UnderCategory {
 }
 
 export interface Category {
-  category?: {
-    idCategoria?: string;
-    nomeCategoria: string;
-    tagCategoria: string;
-    sottoCategorie?: UnderCategory[];
-  };
+  idCategoria?: string;
+  nomeCategoria: string;
+  tagCategoria: string;
+  sottoCategorie?: UnderCategory[];
 }
 export interface Product {
-  product?: {
-    id?: string;
-    categoria: Category;
-    nome: string;
-    prezzo: string;
-    quantita: string;
-    costo: string;
-    dataAcquisto: string;
-    dataSpeciale?: string;
-  };
+  _id: string;
+  categoria: Category;
+  nome: string;
+  prezzo: string;
+  quantita: string;
+  costo: string;
+  dataAcquisto: string;
+  dataSpeciale?: string;
 }
 export interface Card {
   key?: number;
-  id: string;
+  _id: string;
   label: string;
   value: string;
-  icon: string;
+  icon: IconName;
 }
 
 export interface CardBilancio {
-  id: string;
+  _id: string;
   value: number;
   moneySymbol: string;
   details: [{ id: string; label: string; value: number; moneySymbol: string }];
@@ -51,7 +49,7 @@ export interface User {
     number: number;
     zipcode: string;
   };
-  id: string;
+  _id: string;
   email: string;
   username: string;
   password: string;

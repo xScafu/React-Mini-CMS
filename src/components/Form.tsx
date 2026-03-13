@@ -1,12 +1,15 @@
-import { useForm } from "react-hook-form";
+import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 
-export default function Form({ children, cssClass }) {
-  const {
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+export default function Form({
+  children,
+  cssClass,
+}: {
+  children: React.ReactNode;
+  cssClass: string;
+}) {
+  const { handleSubmit } = useForm<FieldValues>();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data);
 
   return (
     <>

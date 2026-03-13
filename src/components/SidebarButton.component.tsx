@@ -1,7 +1,9 @@
+import type { ReactNode } from "react";
+
 export interface SidebarButtonProps {
   path?: string;
   label?: string;
-  icon: any;
+  icon?: ReactNode;
   cssClass: string;
   type?: "submit" | "reset" | "button";
 }

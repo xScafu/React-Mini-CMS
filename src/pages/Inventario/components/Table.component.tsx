@@ -28,7 +28,7 @@ export default function Table() {
             </div>
             <div className="grid body js-table-body">
               {filteredProducts.map((product: Product) => (
-                <div className="row" key={product.id}>
+                <div className="row" key={product._id}>
                   <p className="col-3">{product.nome}</p>
                   <p className="col-3">{product.categoria.nomeCategoria}</p>
                   <p className="col-3">{product.quantita}</p>

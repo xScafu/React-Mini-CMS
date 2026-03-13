@@ -19,7 +19,7 @@ export default function AccountForm({ user }: { user: User }) {
       number: user.address.number,
       zipcode: user.address.zipcode,
     },
-    id: user.id,
+    _id: user._id,
     email: user.email,
     username: user.username,
     password: user.password,
